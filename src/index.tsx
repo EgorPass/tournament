@@ -11,6 +11,8 @@ import App from './app/App';
 import ThemeProvierWrapper from "./shared/store/theme/ui/ThemeProviderWrapper";
 import { OfflineDBProvider } from "./shared/store/offlineDB";
 
+import "./firebase"
+
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
