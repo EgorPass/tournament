@@ -1,68 +1,58 @@
 import styled from "styled-components";
 
-
 export const ResultReitingWrapper = styled.div`
   width: 100%;
+  padding: 15px 15px;
   height: 100%;
-  overflow-x: auto;
-  padding: 15px 20px;
+  overflow: auto;
 `
 
-export const ResultRetingColumns = styled.div<{$col?: number}>`
-  display: grid;
-  grid-template-columns: ${({$col}) => !$col ? "repeat(auto-fit, 350px)" : `repeat(${$col},  350px)` };
-  grid-column-gap: 20px;
-  /* padding: 15px 20px; */
-  box-sizing: border-box ;
-  /* max-width: 370px; */
-  /* border-right: 1px dotted rgba(0, 0, 0, .15); */
-  /* padding-right: 20px; */
-  
- 
-`
+export const ResultRetingColumns = styled.div<{$col?: number, $isTwoCol: boolean}>`
 
-export const GenderWrapper = styled.div`
-  
-  /* border: 1px dotted red; */
-  margin-top: 8px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: start; 
+  align-items: center;
 
-  margin-bottom: 15px;
-`
-export const GenderGround = styled.div`
-  padding: 0;
-  margin: 0;
-  /* border: 1px dotted black; */
-
+  @media (${props => props.theme.media.max}) {
+    display: grid;
+    grid-template-columns: ${({$col}) => !$col ? "repeat(auto-fit, 320px)" : `repeat(${$col},  350px)` };
+    box-sizing: border-box ;
+    align-items: flex-start;
+    justify-content: ${ props => props.$isTwoCol ? "center": "start" };
+  }
 `
 
 export const CategoryWrapper = styled.div`
-  
-  /* border: 1px solid gray; */
-  /* 
-  border-top: none;
-  border-right: none;
-  border-left: none; */
-  /* border-radius: 3px; */
   padding: 0px 0;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 
 `
 
-export const CategoryItemGroup = styled.div<{$status: boolean}>`
-  padding: 8px 8px;
-  border: 1px solid rgba(0, 0, 0, .05);
+export const CategoryItemGroup = styled.div<{$status: boolean, $isSingle: boolean }>`
+  border: ${ props => `1px solid ${props.theme.themeColors.color.primalLine}`};
   border-radius: 5px;
-  margin-bottom: 5px;
-  background-color: #f8f8f8;
-
-  /* border: 1px solid black; */
+  margin-bottom: 10px;
+  background-color: ${ props => props.theme.themeColors.color.button};
+  padding: ${props => props.$isSingle ? "10px 16px" : "8px" };
   cursor: ${ ({$status}) => $status ? "pointer" : "inherit" };
+  
+  width: 320px;
+  
+  
 
+  &:last-child{
+    margin-bottom: 0px;
+  }
 `
 
 export const PlayerGround = styled.div`
-  border: 1px solid rgba(0, 0, 0, .05);
   /* border: 1px dotted red; */
+  border: ${ props => `1px solid ${props.theme.themeColors.color.secondaryLine}`};
+
   border-radius: 5px;
   padding: 5px 10px;
 
@@ -79,6 +69,10 @@ export const PlayerGround = styled.div`
 
 
 export const Title = styled.div`
-  
-
+  text-align: center;
+/*   
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center; */
 `

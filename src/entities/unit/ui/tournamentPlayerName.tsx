@@ -9,7 +9,6 @@ const TournamentPlayerNameWrapper = styled.div`
   justify-items: center; */
   
   margin: 0 0 0px 0;
-  
   @media (${props => props.theme.media.max}) {
     /* align-items: flex-start; */
     /* margin: 0 0 10px 20px; */

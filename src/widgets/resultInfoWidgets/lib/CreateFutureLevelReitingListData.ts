@@ -57,7 +57,7 @@ export class CreateFutureLevelReitingListData extends CreateLevelReitingListCons
             dqState: { reiting: false, status: false, dq: "" },
             resultState: null,
             dqList: [],
-            name: `№ ${player.number} ${player.name}`,
+            name: `№${player.number} ${player.name}`,
             id: player!.id,
             levelReiting: player.levelReiting,
             levelStatus: player.levelStatus

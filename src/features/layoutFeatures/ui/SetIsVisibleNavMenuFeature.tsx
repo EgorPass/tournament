@@ -5,8 +5,8 @@ const StyledVisibleNavButton = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border:1px solid rgba( 0, 0 ,0 ,.15);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, .2);
+  border:  ${ (props => `1px solid ${props.theme.themeColors.color.primalLine}`)};
+  box-shadow: ${ (props => `0 4px 4px ${props.theme.themeColors.color.primalLine }`)};
 
   position: absolute;
   z-index: 1000;
@@ -18,12 +18,12 @@ const StyledVisibleNavButton = styled.div`
   justify-content: center;
   align-items: center;
 
-  background: #e8e8e8; // ${ (props) => props.theme.themeColors.bg.nav.container.phone };
+  background: ${ (props) => props.theme.themeColors.color.primalBg };
 
   &:active {
     /* left:  */
     bottom: 63px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+    box-shadow: ${ (props => `0 2px 2px ${props.theme.themeColors.color.primalLine}`)};
   }
 
   @media (${(props) => props.theme.media.desc_min}) {
@@ -31,13 +31,6 @@ const StyledVisibleNavButton = styled.div`
   };
 `
 
-const StyledLineForMenu = styled.div`
-  
-  border-bottom: 1px solid black;
-  /* margin-top: 11px; */
-  width: 80%;
-
-`
 
 export const SetVisibleNavMenuFeature = () => {
 

@@ -1,16 +1,17 @@
 import styled from "styled-components"
-import { MouseEvent } from "react"
-import { bookMarkSet } from "../config/bookMarkSet"
+import { FC, MouseEvent } from "react"
 import { useGetBookMark, useSetBookMark } from "../../../shared/store/redux/slices/bookMarkSlice"
+import { TBookMark } from "../../../types"
 
-const DisciplineBookMarkItem = styled.div<{$color: boolean}>`
-  border: 1px solid rgba(0, 0, 0, .03);
+const DisciplineBookMarkItem = styled.div<{$isActive: boolean}>`
+  border: ${ props => `1px solid ${ props.theme.themeColors.color.secondaryLine }`};
   border-radius: 15px 15px 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background-color: ${({$color})=> $color ? "#f8f8e9" : "transparent"  };
+  background-color: ${({$isActive, theme })=> $isActive ? theme.themeColors.color.navLink : "transparent"  };
+
 
   height: 100%;
   width: 100%;
@@ -20,8 +21,8 @@ const DisciplineBookMarkItem = styled.div<{$color: boolean}>`
   cursor: pointer;
 
   &:hover {
-    background-color: #f8f8e9;
-
+    background-color: ${({ theme })=> theme.themeColors.color.hoverLink   };
+    color:  ${({ theme })=> theme.themeColors.fontColor.hover   };
   }
 `
 
@@ -36,7 +37,7 @@ const DisciplineBookMarkContainer = styled.div`
   
 `
 
-export const DisciplineBookMarkPlayFeature = () => {
+export const DisciplineBookMarkPlayFeature: FC<{bookMarkSet: TBookMark[]}> = ({ bookMarkSet }) => {
   const { setBookMark } = useSetBookMark()
   const bookMark = useGetBookMark()
   return (
@@ -50,7 +51,7 @@ export const DisciplineBookMarkPlayFeature = () => {
                 setBookMark( it )
               }
             }
-            $color = { it === bookMark }
+            $isActive = { it === bookMark }
           >
             { it }
           </DisciplineBookMarkItem>

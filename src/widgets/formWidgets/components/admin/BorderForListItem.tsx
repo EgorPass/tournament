@@ -9,9 +9,9 @@ export const BorderForListItem = styled.div<{$check: boolean}>`
   border-radius: 8px;
 
 
-  background-color: ${ ( {$check}) => $check ? "#00800021": "transparent"   };
+  background-color: ${ ( {$check, theme }) => $check ? theme.themeColors.color.navLink: "transparent"   };
 
   &:hover {
-    background-color: #aaaf7123;
+    background-color: ${ props => props.theme.themeColors.color.hoverLink };
   }
 `

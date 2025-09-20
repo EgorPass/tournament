@@ -176,6 +176,6 @@ export class ReducingPastLevels extends ReducingLevels {
   private setReitingListPlayerName( id: string  ) {
     // console.log( this.tournamentPlayers )
     const player = this.tournamentPlayers.find( player => player.id === id )
-    return `№ ${player!.number} ${player!.name}`
+    return `№${player!.number} ${player!.name}`
   }
 }

@@ -10,6 +10,7 @@ export const StyledFormRowButtonContainer = styled.div<ICompProps>`
   justify-self: ${ ({$just}) => ( $just ? $just: "center") };
   user-select: none;
 
+  color: ${ props => props.theme.themeColors.fontColor.primal};
   /* border: 1px dotted green; */
 
   & > span {

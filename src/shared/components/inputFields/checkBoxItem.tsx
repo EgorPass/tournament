@@ -14,6 +14,8 @@ const CheckboxContainer = styled.label`
   display: grid;
   grid-template-columns: 30px auto;
   align-items: center;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
+
   /* justify-content: start; */
   & > input:checked + div  div {
     display: block;
@@ -28,9 +30,10 @@ const CheckboxRect = styled.div`
   position: relative ;
   width: 20px;
   height: 20px;
-  background-color: #fdfdfd; //${(props) => ( props.theme.themeColors.bg.input.inputBg)};
-  box-shadow: inset 0 4px 4px 0 ${(props) => ( props.theme.themeColors.boxShadow.inputTextField)};
-  border: 1px solid rgba( 105, 105, 105, .26);
+  background-color: ${(props) => ( props.theme.themeColors.color.inputField)};
+  box-shadow: ${ (props => ` inset 0 4px 4px  ${props.theme.themeColors.color.secondaryLine }`)};
+  border: ${ (props => `1px solid ${props.theme.themeColors.color.primalLine }`)};
+
 `
 const CheckboxAncher = () => (
   <StyledCheckboxAncherBox><CheckStyleV /></StyledCheckboxAncherBox>

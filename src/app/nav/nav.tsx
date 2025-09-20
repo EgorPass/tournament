@@ -9,18 +9,18 @@ const StyledOuterListContainer = styled.ul`
   height: 100%;
   user-select: none;    //
   list-style-type: none;    //
-  width: ${(props) => props.theme.nav.outerLists.wd.ph };
-  padding: ${ (props) =>  props.theme.nav.outerLists.pd.ph };
+  width: 276px;
+  padding: 10px 0 10px 0;
 
   @media (${(props) => props.theme.media.desc_min}) {
-    width: ${ (props) => props.theme.nav.outerLists.wd.ds };
-    padding: ${ (props) => props.theme.nav.outerLists.pd.ds } ;
+    width: 276px;
+    padding: 10px 0 10px 0 ;
   }
 `;
 
 const StyledNavContainer = styled.nav<{$left?: string, $isVisible: boolean }>`
   /* border: 1px dotted blue; */
-  border-right: 1px solid rgba( 0, 0 ,0 ,.15);
+  border-right: ${ (props) => `1px solid ${props.theme.themeColors.color.primalLine }` };
   /* overflow: hidden; */
   height: 100%;
   top: 0;
@@ -32,20 +32,16 @@ const StyledNavContainer = styled.nav<{$left?: string, $isVisible: boolean }>`
   left: ${  props => props.$isVisible ? "0px" : "-317px" } ; //-317px;
   
   //  сделать медийными и убрать из темы //
-  width: ${ (props) => props.theme.nav.navCont.wd.ph };
-  padding: ${ (props) => props.theme.nav.navCont.pd.ph };
+  width: 317px;
+  padding: 0 6px 0 20px;
   /* padding-top: 40px; */
   //////////////////////////////
 
-  background-color: ${ (props) => props.theme.themeColors.bg.nav.container.phone };   
+  background-color: ${ (props) => props.theme.themeColors.color.primalBg };   
 
   @media (${(props) => props.theme.media.desc_min}) {
-    position: static;         //
-    background-color: ${ (props) => props.theme.themeColors.bg.nav.container.desctop };   //
-
-
-    width: ${ (props) => props.theme.nav.navCont.wd.ds };
-    padding: ${ (props) => props.theme.nav.navCont.pd.ds };
+    background-color: ${ (props) => props.theme.themeColors.color.mainBg };   //
+    position: static;    
   };
 
 `;

@@ -16,7 +16,7 @@ const SubTryWrapper = styled.div`
   /* border: 1px solid red; */
   /* margin: 5px 10px 15px; */
   padding: 0 10px;
-  border: 1px solid rgba(0, 0, 0, .05);
+  border: ${ props => `1px solid ${ props.theme.themeColors.color.secondaryLine }`};
   border-radius: 5px 10px 0 0 ;
   position: relative;
 `
@@ -32,7 +32,7 @@ const SubTryRemover = styled.button`
 const PlayerSubTryBorder = styled.div`
   /* border: 1px dotted green; */
   min-height: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, .05);
+  border-bottom:  ${ props => `1px solid ${ props.theme.themeColors.color.secondaryLine }`};
   margin: 10px 0 0;
 `
 const PayerDq = styled.div`

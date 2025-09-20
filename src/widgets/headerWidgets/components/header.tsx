@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const Header = styled.header`
   padding: 0;
   margin: 5px 5px 10px;
-  border-bottom: 1px solid rgba( 0, 0 ,0 , .05);
+  border-bottom: ${ (props) => `1px solid ${props.theme.themeColors.color.primalLine }` };
+  color: ${ props => props.theme.themeColors.fontColor.primal }
+
 `
 export const HeadTwo = styled.h2`
   padding: 0;

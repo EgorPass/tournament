@@ -1,11 +1,15 @@
 import { FC, ReactNode } from "react";
 import { TDqState } from "../lib/types";
+import styled from "styled-components";
 
 interface IProp {
   children: ReactNode
   dqState: TDqState,
   dqList: string[]
 }
+
+
+const DisciplineReitingWrapper = styled.div``
 
 export const DisciplineReitingPlayerDQsList: FC<IProp> = ({dqState, dqList, children }) =>  (
   <>

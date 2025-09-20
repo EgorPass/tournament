@@ -22,16 +22,12 @@ export const LayoutCoverWrapperWidget = styled.div.attrs<any>((props)=>{
   // }
 
 })`
-  background-color: ${
-  (props) => (
-    props.theme.themeColors.bg.cover ? props.theme.themeColors.bg.cover : "#ffffff"
-  )
-  } ;
+  background-color: ${ (props) => props.theme.themeColors.color.mainBg };
   width: 100%;
   height: 100%;
   position: relative;
   padding: 0 0 0 0px;
-
+  color: ${ props => props.theme.themeColors.fontColor.primal };
   /* border: 1px dotted black; */
 
   @media(${props => props.theme.media.large}) {

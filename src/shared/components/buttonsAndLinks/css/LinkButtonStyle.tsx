@@ -1,29 +1,29 @@
-import styled, { css } from "styled-components";
+import { css } from "styled-components";
 
 export const LinkButtonStyle = css`
   position: relative;
   padding: 10px 15px 10px;  
   border-radius: 5px;
-  border: 1px solid rgba( 0, 0, 0, .03);
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .03);
+
+  border: ${ (props => `1px solid ${props.theme.themeColors.color.secondaryLine }`) };
+  box-shadow: ${(props => `0 4px 4px 0 ${props.theme.themeColors.color.secondaryLine }`)};
 
   text-decoration: none;
-  color: #000;
+  color: ${ (props => props.theme.themeColors.fontColor.primal ) };
 
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-
-  /* background-color: white; */
+    background-color: ${ (props => props.theme.themeColors.color.mainBg ) };
 
   &:hover{
-    background-color: #f8f8e9;
+    background-color: ${ (props => props.theme.themeColors.color.hoverLink ) };
   } 
 
   &:active {
     top: 2px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .08);
+    box-shadow: ${(props => `0 2px 2px 0 ${props.theme.themeColors.color.secondaryLine }`)};
 
   }
 `

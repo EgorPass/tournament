@@ -7,7 +7,7 @@ import { PlayerGround, Title } from "./wrapperComponents";
 
 
 export const DisciplineReitingPlayerData: FC<TReitingPlayerData> = ({name, dqList, dqState, resultState }) =>  (
-  <PlayerGround>
+  <>
     <Title>{ name }</Title>
     <DisciplineReitingPlayerDQsList dqList = { dqList } dqState = { dqState } >
       {
@@ -16,5 +16,5 @@ export const DisciplineReitingPlayerData: FC<TReitingPlayerData> = ({name, dqLis
         ) : null
       }
     </DisciplineReitingPlayerDQsList>
-  </PlayerGround>
+  </>
 )

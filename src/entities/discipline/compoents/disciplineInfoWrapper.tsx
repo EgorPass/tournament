@@ -23,3 +23,53 @@ export const DisciplineInfoWrapper = styled.div`
     justify-content: stretch;     
   }
 `
+
+export const DisciplineDescriptionWrapper = styled.div`
+  height : 100%;
+  overflow: auto;
+  padding: 15px 15px;
+
+  /* width: calc(100% + 8px); */
+`
+export const UnOderList = styled.ul`
+  max-width: 560px;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px auto 10px;
+`
+
+export const LevelListItem = styled.li`
+  
+  margin-bottom: 10px;
+  /* padding-bottom: 10px; */
+
+  & h6{
+    border-bottom: ${ props => `1px solid ${ props.theme.themeColors.color.secondaryLine }`};
+    margin-bottom: 8px;
+    text-align: center;
+
+    @media (${props => props.theme.media.max}) {
+      text-align: start;
+      text-indent: 30px;  
+    }
+  }
+`
+
+export const DataDiv = styled.div<{$topMargin?: string}>`
+  margin-bottom: 15px;
+  margin-top: ${props=> props.$topMargin? props.$topMargin: "0" };
+  text-align: ${props=> props.$topMargin? "center": "start" };
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  & em {
+    font-style: italic;
+  }
+`
+
+export const LevelsWrapper = styled.div`
+  margin-top: 15px;
+
+`

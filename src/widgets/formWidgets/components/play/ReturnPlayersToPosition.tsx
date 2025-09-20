@@ -7,6 +7,8 @@ const ReturnToPosition = styled.div`
   display: grid;
   justify-items: left;
   padding: 10px 10px 20px 30px;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
+  
   & label {
     display: grid;
     grid-template-columns: 40px auto;

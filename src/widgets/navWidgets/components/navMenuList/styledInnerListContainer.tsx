@@ -5,10 +5,7 @@ export const StyledInnerListContainer = styled.ul`
   height: 100%;   //
   list-style-type: none;  //
 
-  padding: ${ (props)=> props.theme.nav.innerLists.pd.ph };
+  padding: 0 0 0 17px;
 
-  @media (${(props) => props.theme.media.desc_min}) {
-    padding: ${ (props) => props.theme.nav.innerLists.pd.ds } ;
-  }
 
 `;

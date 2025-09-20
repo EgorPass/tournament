@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { ILevelList, ILevelListItem } from "../../../types";
 import { StyledGridAreaItem } from "../../../shared/components/groupComponents";
 import styled from "styled-components";
 

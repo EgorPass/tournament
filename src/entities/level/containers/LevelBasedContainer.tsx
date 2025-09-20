@@ -6,7 +6,8 @@ import { useLevelBased } from "../model/useLevelBased";
 export const LevelBasedContainer: FC<ILevel > = ( level ) => {
   const { 
     createLevel, pastLevel, 
-    fromLevel, fromDiscipline, fromTournament 
+    fromLevel, fromDiscipline, 
+    fromTournament 
    } = useLevelBased( level )
 
   return (

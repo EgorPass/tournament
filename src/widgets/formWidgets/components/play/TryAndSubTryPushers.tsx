@@ -13,6 +13,8 @@ const PushButton = styled.button`
   font-style: italic;
   border: none;
   background: transparent;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
+
   cursor: pointer;
 `
 

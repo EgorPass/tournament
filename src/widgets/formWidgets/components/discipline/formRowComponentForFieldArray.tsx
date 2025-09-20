@@ -24,13 +24,13 @@ interface IValuesGrid {
   $just?:string,
   $aling?: string,
 }
-export const TwoRowContainer = styled.div`
+const TwoRowContainer = styled.div`
   display: grid;
   grid-template-rows: auto 50px;
   padding: 0;
   margin: 0;
 `
-export const StyledListGridAutoFill = styled.div<IValuesGrid>`
+const StyledListGridAutoFill = styled.div<IValuesGrid>`
   display: grid;
   justify-items: ${ ( {$just}) => ( $just ? $just : "start")};
   align-items: ${ ( {$aling}) => ( $aling ? $aling : "center")};
@@ -39,6 +39,7 @@ export const StyledListGridAutoFill = styled.div<IValuesGrid>`
   grid-column-gap: ${ ( {$colGap}) => ( $colGap ? $colGap : "0")};
   height: auto;
   padding-left: 10px;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
   @media (${props => props.theme.media.max}) {
     padding-left: 0;
   }

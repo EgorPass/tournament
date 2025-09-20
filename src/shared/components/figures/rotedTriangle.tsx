@@ -10,7 +10,10 @@ export const RotedTriangle: FC<{isOpen: boolean}> = ({isOpen }) => {
     >
       <svg width="14" height="14" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           
-      <path d="M9 0.000244141L17.6603 15.0002L0.339746 15.0002L9 0.000244141Z" fill= {theme.themeColors.bg.nav.marker}/>
+        <path 
+          d="M9 0.000244141L17.6603 15.0002L0.339746 15.0002L9 0.000244141Z" 
+          fill = { theme.themeColors.color.marker }
+        />
      
       </svg>
     </RotedBox>

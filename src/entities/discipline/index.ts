@@ -1,2 +1,4 @@
 export { DisciplineInfoBlock } from "./ui/disciplineInfoBlock"
-export { DisciplinePlayDescription } from "./ui/DisciplinePlayDescription"
+export { DisciplineEmptyUnitList } from "./ui/DisciplineEmptyUnitList"
+
+export { DisciplinePlayInfo } from "./ui/DisciplinePlayInfo"

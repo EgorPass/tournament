@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const GroupContentWrapper = styled.div`
   padding: 10px 10px;
   margin-bottom: 10px;
-  border: 1px solid rgba(0, 0, 0, .03);
+  border: ${ (props => `1px solid ${props.theme.themeColors.color.secondaryLine }`)};
   border-radius: 5px;
   
   margin-bottom: 10px;

@@ -1,35 +1,32 @@
 import { useCreateReitingList } from "../model/useCreateReitingList"
 import { DisciplineReitingLevelGenderItem } from "./DisciplineReitingLevelGenderItem"
-import { ResultReitingWrapper, ResultRetingColumns } from "../components/wrapperComponents"
-import { LevelHeader } from "../components/reitingHeaders"
-import styled from "styled-components"
+import {  ResultReitingWrapper, ResultRetingColumns } from "../components/wrapperComponents"
+import { LevelWrapperComponent } from "../components/LevelWrapperComponent"
+import { suspenseHOCWrapper } from "../../../shared/HOCs"
+import { IDiscipline, ITournamentPlayer } from "../../../types"
+import { FC } from "react"
 
 
-const LevelWrapper = styled.div`
-/* border: 1px dotted red; */
-  &:last-child {
-    /* border: 1px dotted red; */
-    /* margin-right: 20px; */
-  }
-`
-const LevelGround = styled.div`
-/* border: 1px dotted green; */
+interface IProp {
+  discipline: IDiscipline | undefined
+  tournamentPlayers: ITournamentPlayer[]
+}
+
+export const LevelTreeContainer:FC<IProp> = suspenseHOCWrapper(
+  ({discipline, tournamentPlayers}) => {
   
-`
-
-export const LevelTreeContainer = () => {
+  const { data, isSuccess, } = useCreateReitingList( discipline, tournamentPlayers )
   
-  const { data, isSuccess, } = useCreateReitingList()
+  console.log( data )
+
   if( isSuccess )
   return (
     <ResultReitingWrapper>
-      <ResultRetingColumns $col = { data.length }>
+      <ResultRetingColumns $col = { data.length } $isTwoCol = { data.length <= 2 }>
         {
           data.map( ({ level, boy, girl }) => (
-            <LevelWrapper key = { level.id }>
-              <LevelHeader>{ level.name } </LevelHeader>
-              <LevelGround>
-                <DisciplineReitingLevelGenderItem
+            <LevelWrapperComponent level_name={ level.name } key = { level.id }>
+              <DisciplineReitingLevelGenderItem
                   gender = "girl"
                   list = { girl }
                   level = { level }
@@ -39,8 +36,7 @@ export const LevelTreeContainer = () => {
                   list = { boy }
                   level = { level }
                 /> 
-              </LevelGround>
-            </LevelWrapper>
+            </LevelWrapperComponent>
           ))
         }
       </ResultRetingColumns>  
@@ -49,3 +45,4 @@ export const LevelTreeContainer = () => {
   else 
   return null
 }
+)

@@ -12,18 +12,24 @@ const DateItemContainer = styled.label`
   padding: 5px 20px;
 
   overflow: hidden;
-
+  
+  div {
+    color: ${ props => props.theme.themeColors.fontColor.primal };
+  }
+  
   span {
     font-weight: 500;
   }
 
   input {
     width: 20px;
-    background-color: transparent;
+    background-color: ${ props => props.theme.themeColors.color.primalBg };
     border: none;
     box-shadow: none;
     grid-area: inputField;
     outline: none;
+    color: ${ props => props.theme.themeColors.fontColor.primal };
+
   }
 
   @media (${props => props.theme.media.max}) {

@@ -1,15 +1,14 @@
-import { useGetQueryData } from "../../../shared/hooks/state/useGetQueryData"
+import { useGetSuspenseStateItem } from "../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateItem"
 import { useLocationHooks } from "../../../shared/hooks/useLocationHook"
 import { IDiscipline, ITournament } from "../../../types"
 import { MainHeader } from "../components/mainHeader"
 
 export const AddHeaderWidget = () => {
-  const { fromId } = useLocationHooks()
-  const getQueryData = useGetQueryData()
-  const discipline = getQueryData<IDiscipline>("discipline", "id", fromId )
-  const tournament = getQueryData<ITournament>("tournament", "id", discipline.tournament_id )
-  const discipline_name = !!discipline ? discipline.name : "дисциплина"
-  const tournament_name = !!tournament ? tournament.name : "соревнование"
+  const { fromPathname, fromId } = useLocationHooks()
+  const { data: discipline, isSuccess: disciplineIsSuccess } = useGetSuspenseStateItem<IDiscipline>(fromPathname, "id", fromId )
+  const { data: tournament, isSuccess: tournamentIsSuccess } = useGetSuspenseStateItem<ITournament>("tournament", "id", discipline!.tournament_id )
+  const discipline_name = disciplineIsSuccess ? discipline!.name : "дисциплина"
+  const tournament_name = tournamentIsSuccess ? tournament!.name : "соревнование"
   return (
     <MainHeader 
       thirdTitle = { tournament_name }

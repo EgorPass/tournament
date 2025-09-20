@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const PlayerFormWrapper = styled.div`
   
-  border-bottom: 1px solid rgba( 0, 0, 0, 0.04 );
+  border-bottom: ${ props => `1px solid ${ props.theme.themeColors.color.secondaryLine }`};
 
   &:last-child{
     border-bottom: none;
@@ -52,7 +52,6 @@ export const PusherRowWrapper = styled.div`
 
 export const FieldArrayWrapper = styled.div`
   margin-bottom: 10px;
-  
 
 `
 

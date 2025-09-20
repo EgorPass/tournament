@@ -10,6 +10,7 @@ import { useModalPlayLayoutContextConsumer } from "../../../../features/layoutFe
 import { PlayersTryDataList } from "../../containers/play/PlayersTryDataList"
 import { useEffect } from "react"
 import { useForm } from "react-final-form"
+import { suspenseHOCWrapper } from "../../../../shared/HOCs"
 
 const TournamentPlayerDataWrapper = styled.div`
   height: 100%;
@@ -18,6 +19,8 @@ const TournamentPlayerDataWrapper = styled.div`
   left: 10px;
   right: 7px;
   padding: 15px ;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
+
 `
 const ContentWrapper = styled.div`
   overflow: auto;
@@ -29,7 +32,8 @@ const EmptyResults = styled.div`
   padding: 5px 0 10px 30px;
 `
 
-export const DisciplineTournamentPlayerModalData = () => {
+export const DisciplineTournamentPlayerModalData = suspenseHOCWrapper(
+  () => {
   console.log( " General render modal form .....")
 
   const form = useForm()
@@ -83,3 +87,4 @@ export const DisciplineTournamentPlayerModalData = () => {
   )
   return null
 }
+)

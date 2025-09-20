@@ -8,6 +8,7 @@ const FormRowHead = styled.h6`
   margin: 0 0 0 10px;
   text-align: start;
   justify-self: start;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
   
   @media (${props => props.theme.media.max}) {
     margin-left: 0;
@@ -19,7 +20,9 @@ const StyledFormRowContainer = styled.div`
   max-width: 600px;
   margin: 0px auto;
   padding: 10px 0px 10px 0;
-  border-bottom: 1px solid rgba( 105, 105, 105, .1);
+
+  /* border-bottom: 1px solid rgba( 105, 105, 105, .1); */
+    border-bottom: ${ (props) => `1px solid ${props.theme.themeColors.color.secondaryLine }` };
 
 
   display: grid;

@@ -4,8 +4,7 @@ import { CloseX } from "../../assets/closeX"
 
 export const StyledRemoveItemButton = styled.div`
   border-radius: 50%;
-  border: 1px solid rgba( 0, 0, 0, .26);
-  
+  border: ${ (props => `1px solid ${props.theme.themeColors.color.primalLine }`)};
   display: flex;
   align-items: center;
   justify-content: center; 
@@ -17,20 +16,20 @@ export const StyledRemoveItemButton = styled.div`
     width: 14px;
     height: 14px;
   }
+  box-shadow: ${ (props => `0px 2px 4px ${props.theme.themeColors.color.primalLine }`)};
 
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, .4);
-
-  background-color: #faf9f9;
+  background-color: ${ props => props.theme.themeColors.color.primalBg };
   cursor: pointer;
   position: relative;
 
   &:hover{
-    background-color: #f0f0f0;
+    background-color: ${ props => props.theme.themeColors.color.hoverLink };
   }
+  color: ${ (props => props.theme.themeColors.fontColor.primal ) };
 
   &:active{
-    top: 1px;
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .4);
+    top: 2px;
+    box-shadow: ${ (props => `0px 0px 2px ${props.theme.themeColors.color.primalLine }`)};
   }
   /* align-self: center; */
 `

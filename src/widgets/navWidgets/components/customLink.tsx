@@ -13,8 +13,8 @@ export const CustomLink: FC<{to: string, title: string, state?: any}> = ({to, ti
       as = { Link }
       to = { to }
       state = { state }
-      $bg = { match ? theme.themeColors.bg.nav.navLink : undefined }
-      $cr = {  match ? theme.themeColors.font.navLink : undefined }
+      $bg = { match ? theme.themeColors.color.navLink : undefined }
+      $cr = {  match ? theme.themeColors.fontColor.hover : undefined }
     >
       { title }
     </StyledTitleGridBox> 

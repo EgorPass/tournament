@@ -81,10 +81,10 @@ export class PlayerReitingTree extends PlayerReitingListConstructorToCategoryFab
           
           let levelReiting: number | null = null
 
-          if( isPlayer && isPlayer.gender === "girl" && isPlayer.number === "9") {
-            console.log( isPlayer )
-            console.log( playerData )
-          }
+          // if( isPlayer && isPlayer.gender === "girl" && isPlayer.number === "9") {
+          //   console.log( isPlayer )
+          //   console.log( playerData )
+          // }
 
           if( isLevelPlay ) {
 

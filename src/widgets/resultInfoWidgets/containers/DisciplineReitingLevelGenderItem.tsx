@@ -1,15 +1,11 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { DisciplineReitingPlayerData } from "../components/DisciplineReitingPlayerData";
 import {  ILevel,  } from "../../../types";
 import { useSetPlayerModalData } from "../../../shared/store/redux/slices/playerModalData";
 import { TReitingCategoryList } from "../lib/types";
-import { CategoryItemGroup, CategoryWrapper, GenderGround, GenderWrapper } from "../components/wrapperComponents";
-import { CategoryHeader, GenderHeader } from "../components/reitingHeaders";
-
-const translate: {[key:string]: string } = {
-  "boy": "Мужской пол",
-  "girl": "Женский пол"
-}
+import { CategoryItemGroup, CategoryWrapper, PlayerGround } from "../components/wrapperComponents";
+import { CategoryHeader } from "../components/reitingHeaders";
+import { GenderWrapperComponent } from "../components/GenderWrapper";
 
 
 interface IProp {
@@ -21,18 +17,19 @@ interface IProp {
 export const DisciplineReitingLevelGenderItem: FC<IProp> = ({ gender, list = [], level  }) => {
   const { setPlayerModalData } = useSetPlayerModalData()
   return (
-    <GenderWrapper>
-      <GenderHeader>{ translate[ gender ] }</GenderHeader>
-      <GenderGround>
-        {
+    <GenderWrapperComponent gender = { gender }>
+      {
           list.map( ( [ category, items ] )  => (
             <CategoryWrapper key = { `${ category }` }>
-                <CategoryHeader title = { category } />
+                {
+                  items.length > 0 && <CategoryHeader title = { category } />
+                }
                   {
                     items.map( ( item, index) => (
                       <CategoryItemGroup
                         key = { `${category}-item-group-${index}`}
                         $status = { !!level ? level.status === "play": false }
+                        $isSingle = { item.playersData.length === 1 }
                         onClick={ () => {
                           if( level!.status === "play" ){
                             const playersId = item.playersData.map( it => it.id ) 
@@ -43,10 +40,24 @@ export const DisciplineReitingLevelGenderItem: FC<IProp> = ({ gender, list = [],
                       >
                         {
                           item.playersData.map( ( playerData, index ) => (
-                            <DisciplineReitingPlayerData
+                            <Fragment 
                               key = {`current-player-${ playerData.id}`}
-                              { ...playerData }
-                            />
+                            >
+                              {
+                                item.playersData.length > 1 ? ( 
+                                  <PlayerGround>
+                                    <DisciplineReitingPlayerData
+                                      { ...playerData }
+                                    />
+                                  </PlayerGround>
+
+                                ) : (
+                                  <DisciplineReitingPlayerData
+                                    { ...playerData }
+                                  />
+                                )
+                              }
+                            </Fragment>
                           ))
                         }
                       </CategoryItemGroup>
@@ -55,8 +66,6 @@ export const DisciplineReitingLevelGenderItem: FC<IProp> = ({ gender, list = [],
             </CategoryWrapper>
           ))
         }
-      </GenderGround>
-    </GenderWrapper>
+    </GenderWrapperComponent>
   )
-  // return null
 }

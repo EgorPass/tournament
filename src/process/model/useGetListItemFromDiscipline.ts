@@ -1,6 +1,6 @@
 import { apiForCreateData } from "../../shared/lib/api/apiForCreateData"
 import { useDBGetMethods, useDBSetMethods } from "../../shared/store/offlineDB"
-import { ExcludeTypePlayerReiting, IDiscipline, ILevel, ITournamentPlayer, ITournamentUnit, TCategoryFabric } from "../../types"
+import { ExcludeTypePlayerReiting, ICategoriesItems, IDiscipline, ILevel, ITournamentPlayer, ITournamentUnit, TCategoryFabric } from "../../types"
 import { PlayerReitingTree } from "../../widgets/resultInfoWidgets/lib/PlayerReitingTree"
 import { useReducingLevelData } from "../../widgets/resultInfoWidgets/model/ useReducingLevelData"
 
@@ -9,6 +9,12 @@ type TReduceFabrice = {
           tournamentPlayers: ITournamentPlayer[]
           tournamentUnits: ITournamentUnit[]
         }
+
+type TMappingPlayers = {
+  list: TCategoryFabric[]
+  units: ITournamentUnit[], 
+  players: ExcludeTypePlayerReiting[] 
+}
 
 export const useGetListItemFromDiscipline = () => {
 
@@ -24,54 +30,49 @@ export const useGetListItemFromDiscipline = () => {
       fromResult: { discipline: fromDiscipline }
     } = currentLevel
 
-    const tournamentPlayers = await getItemsFromDB<ITournamentPlayer>("tournament_player", "discipline_id", discipline_id )
+    const fromDisciplineItem = await getItemFromDB<IDiscipline>( "discipline", "id", fromDiscipline )
     
-    const discipline = await getItemFromDB<IDiscipline>( "discipline", "id", fromDiscipline )
-    
+    const currentDiscipline = await getItemFromDB<IDiscipline>( "discipline", "id", discipline_id )
+
     let state: "accept" | "error" = "accept"
     let menPlayers: TCategoryFabric[]= []
     let womenPlayers: TCategoryFabric[]  = []
     
-    if( discipline && discipline.status === "gameOver" ) {
+    if( fromDisciplineItem && fromDisciplineItem.status === "gameOver" && !!currentDiscipline) {
       const tournamentPlayersFromAnotherDiscipline = await getItemsFromDB<ITournamentPlayer>("tournament_player", "discipline_id", fromDiscipline )
       
-      const listData = await getLevelListData( fromDiscipline, discipline!, tournamentPlayersFromAnotherDiscipline )
+      const listData = await getLevelListData( fromDiscipline, fromDisciplineItem!, tournamentPlayersFromAnotherDiscipline )
       const data = new PlayerReitingTree({
-          boy: [], girl: [], dqs: (!!discipline ? discipline.dqs : []), 
+          boy: [], girl: [], dqs: (!!fromDisciplineItem ? fromDisciplineItem.dqs : []), 
           tournamentPlayers: tournamentPlayersFromAnotherDiscipline, 
       }).run( listData ).get() 
 
-      const nextNumber = tournamentPlayers.length + 1
+      const { menCategories, womenCategories } = currentDiscipline
 
-      const womensData = mappingPlayerData( data.womenPlayers, tournamentPlayers, nextNumber, currentLevel )
-      const mensData = mappingPlayerData( data.menPlayers, tournamentPlayers, womensData.nextNumber, currentLevel )
-
-      const idCash = [ ...womensData.idCash, ...mensData.idCash ]
-      
-      const fullListTournamentPlayers = [ 
-                  ...womensData.plyersData.tournamentPlayers,
-                  ...mensData.plyersData.tournamentPlayers            
-      ]
-      const fullListTournamentUnits = [
-                  ...womensData.plyersData.tournamentUnits,
-                  ...mensData.plyersData.tournamentUnits
-      ]
-
-      await changeAtDB( "tournament_unit", fullListTournamentUnits )
-      await changeAtDB( "tournament_player", fullListTournamentPlayers )
-
-      const boy = tournamentPlayers.filter( it => it.gender === "boy" && !idCash.includes( it.id ) )
-      const girl = tournamentPlayers.filter( it => it.gender === "girl" && !idCash.includes( it.id ) )
-
-      womenPlayers = reducePlayersFromAnotherDisciplineAndActulePlayers( womensData.plyersData.dataList, girl )
-      menPlayers = reducePlayersFromAnotherDisciplineAndActulePlayers( mensData.plyersData.dataList, boy )
-
-
+      const womens = reduceAndFilterGenderPlayers( data.womenPlayers )
+            .reduce( createDisciplineTFabriceCategories( womenCategories ), [])
+            .map( filterQualityPlayersFromTFabriceCategories( currentLevel ) )
+            .reduce( 
+              mappingPlayers( currentLevel ), 
+              { list: [], units: [], players: [] } as TMappingPlayers 
+            )
+      const mens = reduceAndFilterGenderPlayers( data.menPlayers )
+            .reduce( createDisciplineTFabriceCategories( menCategories ), [])
+            .map( filterQualityPlayersFromTFabriceCategories( currentLevel ) )
+            .reduce( 
+              mappingPlayers( currentLevel ), 
+              { list: [], units: [], players: [] } as TMappingPlayers 
+            )
+            
+      await changeAtDB( "tournament_unit", [...womens.units, ...mens.units ] )
+      await changeAtDB( "tournament_player", [ ...womens.players, ...mens.players ] )
+            
+      menPlayers = [ ...mens.list ]
+      womenPlayers = [ ...womens.list ]
     }
     else {
       state = "error"
     }
-
 
     return {
       state, womenPlayers, menPlayers
@@ -80,97 +81,95 @@ export const useGetListItemFromDiscipline = () => {
 }
 
 
-function mappingPlayerData ( categoryFabricList: TCategoryFabric[], tournamentPlayers: ITournamentPlayer[] , nextNumber: number, level: ILevel) { 
+function reduceAndFilterGenderPlayers( categoryFabricList: TCategoryFabric[] ) {
 
-  const { tournament_id, discipline_id } = level
-  let newNumber = nextNumber
-
-  const idCash: string[] = []
-
-  const plyersData = categoryFabricList.reduce( ( acc, categoryFabric ) => {
-    const { category, players } = categoryFabric 
-            
-    const players__ = players.reduce( ( list, player ) => {
-    
-        const { current_unit_id, age, weight, name, gender } = player 
-      
-        let tournamentUnit: ITournamentUnit | undefined = undefined
-        let tournamentPlayer = tournamentPlayers.find( it => it.current_unit_id === current_unit_id )
-        
-        let newPlayer: ExcludeTypePlayerReiting
-
-        if( !!tournamentPlayer ){
-          newPlayer = {
-            ...tournamentPlayer,
-            levelReiting: player.levelReiting,
-            levelStatus: player.levelStatus,
-          }
-
-          idCash.push( newPlayer.id )
-        }
-        else {
-          const number = newNumber++ + ""
-          tournamentUnit = {
-            id: apiForCreateData.createUniqeId(),
-            age, weight, current_unit_id, tournament_id, number
-          }
-          tournamentPlayer = {
-            id: apiForCreateData.createUniqeId(),
-            age, weight, current_unit_id, tournament_id, discipline_id, number, gender, name, status: "play", tournament_unit_id: tournamentUnit.id
-          }
-
-          newPlayer = {
-            ...player,
-            ...tournamentPlayer
-          }
-        }
-      
-        list.workList.push( newPlayer )
-        if( tournamentPlayer ) {
-          list.tournamentPlayers.push( tournamentPlayer )
-        }
-        if( tournamentUnit ) {
-          list.tournamentUnits.push( tournamentUnit )
-        }
-
-        return list
-    
-    }, { tournamentPlayers: [], tournamentUnits: [], workList: [] } as Omit<TReduceFabrice, "dataList"> & { workList: ExcludeTypePlayerReiting[] } )
-    
-    acc.dataList.push( { category, players: players__.workList } )
-    acc.tournamentPlayers.push( ...players__.tournamentPlayers )
-    acc.tournamentUnits.push( ...players__.tournamentUnits )
-    
-
-    return acc
-  } , { dataList: [], tournamentPlayers: [], tournamentUnits: [] } as TReduceFabrice  )
-
-
-  return {
-    idCash,
-    plyersData,
-    nextNumber: newNumber,
-  }
-
+  return categoryFabricList.reduce( (list, item ) => {
+    const { players } = item
+    list.push( ...players.filter( player => player.levelReiting !== null ) )
+    return list 
+  }, [] as ExcludeTypePlayerReiting[] )
 }
 
+function createDisciplineTFabriceCategories( categories: ICategoriesItems ) {
+
+  return ( acc: TCategoryFabric[], player: ExcludeTypePlayerReiting ) => {
+
+    const { age } = player
+    const categoryItem = categories.find( it => +it.from <= +age && +age <= +it.to)
+
+    if( !!categoryItem ) {
+      const category = `${ categoryItem.from } - ${ categoryItem.to }`
+      const isFind = acc.find( it => it.category === category )
+
+      if( !!isFind ) {
+        isFind.players.push( player )
+      }
+      else {
+        acc.push( {category, players: [ player ] } )
+      }
+
+    }
+
+    return acc
+  }
+}
+
+function filterQualityPlayersFromTFabriceCategories( level: ILevel ) {
+
+  const { units: {  qual, from }} = level
+
+  return <T extends TCategoryFabric>( item: T ) : T  => {
+    const { category, players } = item
+    const endPosition = !!qual && +qual > 0 ? +qual: players.length
+      players.sort( (x,y) => +x.levelReiting! - +y.levelReiting! ).slice()
+
+      if( from === "badUnits" ) {
+        players.reverse()
+      }
+
+    return {
+      category, players: players.slice( 0, endPosition ) 
+    } as T
+  } 
+}
+
+function mappingPlayers( level: ILevel ) {
+  return ( acc: TMappingPlayers, item: TCategoryFabric  ) => {
+    const { players, category } = item 
+    const { tourUnit, tourPlayer } = createNewPlayerData( players, level )
+    acc.units.push( ...tourUnit )
+    acc.players.push( ...tourPlayer )
+    acc.list.push( { category, players: tourPlayer } )
+    return acc
+  }
+} 
 
 
-function reducePlayersFromAnotherDisciplineAndActulePlayers( categoryFabric: TCategoryFabric[], tournamentPlayers: ITournamentPlayer[] ) {
-   return categoryFabric.reduce( ( acc, categoryFabric ) => {
-      const { category, players } = categoryFabric
-      let length = players.length
-      const newPlayers = tournamentPlayers.filter( player => {
-        const [ from, to ] = category.split( " - ")
-        return +from <= +player.age && +player.age <= +to
-      }).map( player => ({
-        ...player,
-        levelReiting: length++,
-        levelStatus: "play"
-      })) as ExcludeTypePlayerReiting[]
+function createNewPlayerData( players: ExcludeTypePlayerReiting[], level: ILevel ) {
 
-      acc.push( { category, players: [ ...players, ...newPlayers ] } )
-      return acc
-    }, [] as TCategoryFabric[] ) 
+  const { tournament_id, discipline_id } = level 
 
+  return players.reduce( ( acc: {
+      tourUnit: ITournamentUnit[], 
+      tourPlayer: ExcludeTypePlayerReiting[]
+    },  
+  player: ExcludeTypePlayerReiting ) => {
+    const { current_unit_id, age, weight, number } = player 
+
+    const tourUnit = {
+      id: apiForCreateData.createUniqeId(),
+      age, weight, current_unit_id, tournament_id, number
+    } as ITournamentUnit
+    const tourPlayer = {
+      ...player,
+      id: apiForCreateData.createUniqeId(),
+      tournament_id, discipline_id,
+      levelStatus: "play",
+      levelReiting: null,
+    } as ExcludeTypePlayerReiting 
+
+    acc.tourUnit.push( tourUnit )
+    acc.tourPlayer.push( tourPlayer )
+    return acc
+  }, { tourUnit: [], tourPlayer: [] })
 }

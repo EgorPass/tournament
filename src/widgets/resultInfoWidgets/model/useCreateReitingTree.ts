@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
-import { usePlayLayoutContextConsumer } from "../../../features/layoutFeatures"
 import { useLocationHooks } from "../../../shared/hooks/useLocationHook"
-import { IDiscipline, IPLayLayoutContext, ITournamentPlayer} from "../../../types"
+import { IDiscipline, ITournamentPlayer} from "../../../types"
 import { PlayerReitingTree } from "../lib/PlayerReitingTree"
 import { useReducingLevelData } from "./ useReducingLevelData"
 
@@ -21,11 +20,11 @@ export const useCreateReitingTreeFunction = () => {
   }
 }
 
-export const useCreateReitingTree = () => {
+export const useCreateReitingTree = (discipline: IDiscipline, tournamentPlayers: ITournamentPlayer[]) => {
   
   const { currentNodeId } = useLocationHooks()
   const queryFunc = useCreateReitingTreeFunction()
-  const { tournamentPlayers , discipline } = usePlayLayoutContextConsumer() as IPLayLayoutContext
+  // const { tournamentPlayers , discipline } = usePlayLayoutContextConsumer() as IPLayLayoutContext
   
   return useSuspenseQuery({
     queryKey: [ "discipline-get-game-reiting-tree", { "id": currentNodeId }],

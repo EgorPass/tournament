@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledButtonBox = styled.section<{$type?: string}>`
   /* border: 1px dotted red; */
   display: grid;
-  border-top: 1px solid rgba(0, 0, 0, .05);
+  border-top: ${ (props) => `1px solid ${props.theme.themeColors.color.primalLine }` };
   height: auto;
   margin: 10px 12px 0;
   align-items: center;

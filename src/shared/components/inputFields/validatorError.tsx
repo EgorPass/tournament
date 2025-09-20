@@ -15,23 +15,23 @@ const StyledInputErrorValidator = styled.span`
   & ~ label,
   & ~ label.date-container__label,
   & ~ div.radio-container__radio-button {
-    text-shadow: 2px 2px 2px white;
-    color: gray;
-    background-color: #ffbaba15;
+    /* text-shadow: 2px 2px 2px white; */
+    color:  ${(props) => ( props.theme.themeColors.fontColor.placeholder)};
+    background-color:  ${(props) => ( props.theme.themeColors.color.errorField )};
   }
   
   & ~ label.date-container__label {
     & input{ 
-      background-color: #f4eded;
+      background-color: ${(props) => ( props.theme.themeColors.color.errorField )};
     }
   }
   & ~ div,   
   & ~ div + div  { // изменяет подписи радио кнопок и кнопки
-    background-color: #ffbaba15;
+    background-color:  ${(props) => ( props.theme.themeColors.color.errorField )};;
     
   }
   & ~ div + div {
-    color: gray;
+    color:  ${(props) => ( props.theme.themeColors.fontColor.placeholder)};
     
   }
 `

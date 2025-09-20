@@ -13,14 +13,15 @@ export const LayoutButton = styled.button.attrs<ILayoutButton>( (props) => ({
 }))`
   grid-area: ${ (props) => props.$actionType };
   user-select: none;
-  background-color: #f6f6f6;
   width: 105px;
   height: 40px;
-  border: 1px solid rgba( 0, 0, 0, .08);
   border-radius: 3px;
-  box-shadow: 0 4px 4px  rgba(0, 0, 0, .2);
+  background-color: ${ (props => props.theme.themeColors.color.button ) };
+  border: ${ (props => `1px solid ${props.theme.themeColors.color.primalLine }`) };;
+  box-shadow: ${(props => `0 4px 4px 0 ${props.theme.themeColors.color.primalLine }`)};
 
   cursor: pointer;
+  color: ${ (props => props.theme.themeColors.fontColor.primal ) };
 
   position: relative; //${ props => props.$disabled ? "static" : "relative"};
 
@@ -28,12 +29,12 @@ export const LayoutButton = styled.button.attrs<ILayoutButton>( (props) => ({
   font-weight: 500;
 
   &:hover {
-    background-color: #f3f3ed;
+    background-color: ${ (props => props.theme.themeColors.color.hoverLink ) };
   }
 
   &:active {
     top: 2px;
     left: 0px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+    box-shadow: ${(props => `0 2px 4px 0 ${props.theme.themeColors.color.primalLine }`)};
   }
 `

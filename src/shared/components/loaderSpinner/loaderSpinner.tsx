@@ -21,6 +21,11 @@ const StyledLoaderSpiner = styled.div`
   }
 `
 
+const LoaderTitle = styled.div`
+  color: ${ props => props.theme.themeColors.fontColor.primal };
+  
+`
+
 export const LoaderSpinner = () => {
 
   const theme = useTheme()
@@ -39,7 +44,7 @@ export const LoaderSpinner = () => {
         secondaryColor = { secondaryColor }
 
       />
-        <div>Подождите, пожалуйста!</div>
+        <LoaderTitle>Подождите, пожалуйста!</LoaderTitle>
       </StyledLoaderSpiner>
   )
 }

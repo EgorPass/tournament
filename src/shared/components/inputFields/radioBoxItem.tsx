@@ -26,6 +26,8 @@ const RadoiContainer = styled.div`
 const RadioTitle = styled.div<{$gridArea: string}>`
   padding: 0;
   margin: 0;
+  color: ${ props => props.theme.themeColors.fontColor.primal };
+  
 `
 
 const StyledRadioButton = styled.div<{$gridArea: string}>`
@@ -37,16 +39,19 @@ const StyledRadioButton = styled.div<{$gridArea: string}>`
   align-items: center;
   justify-content: center;
 
-  background-color: ${(props) => ( props.theme.themeColors.bg.input.inputBg)};
-  box-shadow: inset 0 4px 4px 0 ${(props) => ( props.theme.themeColors.boxShadow.inputTextField)};
-  border: 1px solid rgba( 105, 105, 105, .26);
+  background-color: ${(props) => ( props.theme.themeColors.color.inputField)};
+  box-shadow:  ${ (props => `inset 0 4px 4px 0 ${props.theme.themeColors.color.secondaryLine }`)};
+  border: ${ (props => `1px solid ${props.theme.themeColors.color.primalLine }`)};
+
 
   & > div {
-    width: 10px;
-    height: 10px;
-    
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
     border-radius: 50%;
-    background-color: #525252;
+    background: ${(props) => ( props.theme.themeColors.color.marker )};
   }
 `
 

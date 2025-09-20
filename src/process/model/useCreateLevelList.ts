@@ -25,6 +25,8 @@ export const useCreateLevelList = () => {
     mutationFn: async ( {discipline, level, womenPlayers, menPlayers, state } : ICreateLevelList ) => {
         console.log( "in mutate ")
 
+        console.log( womenPlayers  )
+
         if( 
           state === "error" 
           && level.createLevel === "fromDisciplineResult" 
@@ -86,7 +88,7 @@ export const useCreateLevelList = () => {
         const { level } = variables
         
         if( !error ) {
-          console.log ("data: ", data?.level_list )
+          // console.log ("data: ", data?.level_list )
           await queryClient.invalidateQueries() 
           navigate("/api/play/discipline", { state: locationState, replace: true })
         }

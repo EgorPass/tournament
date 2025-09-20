@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { TCategoryFabric } from "../../../types";
 import { DisciplineReitingTreeGender } from "./DisciplineReitingTreeGender";
 import { ResultReitingWrapper, ResultRetingColumns } from "../components/wrapperComponents";
@@ -9,30 +9,34 @@ interface IProp {
   womenPlayers: TCategoryFabric[]
   menPlayers: TCategoryFabric[]
   discipline_id: string
+  children?: ReactNode
   // discipline: IDiscipline
 }
 
-export const ReitingTree: FC<IProp> = ({ womenPlayers, menPlayers, discipline_id }) => {
+export const ReitingTree: FC<IProp> = ({ womenPlayers, menPlayers, discipline_id, children  }) => {
   const playerModalReiting = useGetPlayerModalReiting()
 
  return (
     <>
       {
         playerModalReiting.status ? (
-          <PlayerModalReitingContainer { ...playerModalReiting } />
+          <PlayerModalReitingContainer { ...playerModalReiting } >
+            { children }
+          </PlayerModalReitingContainer>
         ): (
           <ResultReitingWrapper>
-            <ResultRetingColumns $col = { 2 }>
+            { children && children }
+            <ResultRetingColumns $col = { 2 } $isTwoCol = { true }>
               {
                 <DisciplineReitingTreeGender 
-                  gender = "Женский пол"
+                  gender = "girl"
                   data = { womenPlayers }
                   discipline_id = { discipline_id }
                 />
               }
               {
                 <DisciplineReitingTreeGender 
-                gender = "Мужской пол"
+                gender = "boy"
                 data = { menPlayers }
                 discipline_id = { discipline_id }
                 />

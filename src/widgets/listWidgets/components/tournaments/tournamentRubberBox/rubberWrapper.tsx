@@ -16,58 +16,31 @@ export const RubberWrapper = styled.div<IStyledTitleGridString>`
   grid-template-columns: ${(props)=>(props.$cols? props.$cols : "auto")};
   align-items: center;
   
-  border-bottom: 1px ${ (props) => !props.$bd? "none" : "solid" } ${(props) => (
-      props.theme.themeColors.bg.nav.border ? 
-      props.theme.themeColors.bg.nav.border : "rgba( 0, 0 , 0, .5)"
-    )  };
-    
-  padding: ${ (props)=> props.theme.nav.titleGrid.pd.ph };
+  border-bottom: ${ props => `1px ${ !props.$bd? "none" : "solid" } { props.theme.themeColors.color.secondaryLine } `};
 
-  font-size: ${ (props) => props.theme.nav.font.sz.ph || "18px" };
-  font-weight: ${(props) => props.theme.nav.font.wg.ph };
+  padding: 9px 0 7px 12px;
+
+  font-size: 18px;
+  font-weight: 500;
   
   background-color: ${
     (props)=>( 
       props.$bg ? props.$bg : 
-      props.theme.themeColors.bg.nav.link.phone
+      props.theme.themeColors.color.navLink
     )
   };
   
   color: ${
       (props) => (
-        props.$cr ? props.$cr : props.theme.themeColors.font.nav 
+        props.$cr ? props.$cr : props.theme.themeColors.fontColor.primal 
       )
     };
 
   &:hover {
-    background-color: ${
-      (props) => (
-        props.theme.themeColors.bg.nav.hover ?
-        props.theme.themeColors.bg.nav.hover : 
-        "#F0F0F0"
-      )
-    };
-    color: ${
-      (props) => (
-        props.theme.themeColors.font.navHover ? 
-        props.theme.themeColors.font.navHover : 
-        props.theme.themeColors.font.nav
-      )
-    }
+    background-color: ${ (props) => props.theme.themeColors.color.hoverLink };
+    color: ${ (props) => props.theme.themeColors.fontColor.hover }
   }
 
-  @media (${(props) => props.theme.media.desc_min}) {
-    background-color: ${
-      (props)=>( 
-        props.$bg ? props.$bg : 
-        props.theme.themeColors.bg.nav.link.desctop
-      )
-    };
-    font-size: ${ (props) => props.theme.nav.font.sz.ds  };
-    font-weight: ${  (props) => props.theme.nav.font.wg.ds  };
-
-    padding: ${
-    (props)=> props.theme.nav.titleGrid.pd.ds };
-  }
+  
     
 `;

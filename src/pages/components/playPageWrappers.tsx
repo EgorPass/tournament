@@ -7,17 +7,13 @@ export const DisciplinePlayContentWrapper = styled.div`
   padding: 0;
   margin: 0;
 
-  border: 1px solid rgba(0, 0, 0, 1);
-  border: 1px solid rgba(0, 0, 0, .03);
+  border: ${ props => `1px solid ${ props.theme.themeColors.color.secondaryLine }`};
   border-top: none;
   border-radius: 0 0 5px 5px ;
-
-  /* position:  relative; */
-  /* height: calc(100vh - 90px - 40px - 70px - 3px); */
   height: calc(100% - 40px);
   width: 100%;
   overflow: hidden;
-
+  
   /* border: 1px dotted black; */
 
   & > div {
@@ -27,6 +23,7 @@ export const DisciplinePlayContentWrapper = styled.div`
 `
 
 export const DisciplinePlayMainScreenWrapper = styled.div`
+  color: ${ props => props.theme.themeColors.fontColor.primal };
   width: 100%; //calc(100% - 15px);
   /* padding: 0 8px 0 0; */
   /* position: relative; */

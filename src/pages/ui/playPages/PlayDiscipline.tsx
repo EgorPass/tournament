@@ -1,4 +1,3 @@
-import {  DisciplinePlayDescription } from "../../../entities/discipline"
 
 import { usePlayLayoutContextConsumer } from "../../../features/layoutFeatures"
 import { DisciplineBookMarkPlayFeature } from "../../../features/bookMarkFeatures"
@@ -11,16 +10,12 @@ import { IPLayLayoutContext } from "../../../types"
 import { DisciplinePlayLevelFormWidget } from "../../../widgets/formWidgets"
 import { DisciplinePlayContentWrapper, DisciplinePlayMainScreenWrapper } from "../../components/playPageWrappers"
 import { useGetBookMark } from "../../../shared/store/redux/slices/bookMarkSlice"
-import { useGetPlayerModalData } from "../../../shared/store/redux/slices/playerModalData"
+import { DisciplinePlayInfo } from "../../../entities/discipline"
 
 
 const PlayDiscipline = () => {
   // console.log( "3 - play discipline ..... ")
-  const { 
-    discipline, tournament
-   } = usePlayLayoutContextConsumer() as IPLayLayoutContext
-
-      //  const playerModalData = useGetPlayerModalData()
+  const { discipline, tournament } = usePlayLayoutContextConsumer() as IPLayLayoutContext
 
   const bookMark = useGetBookMark()
   if( tournament && discipline )
@@ -29,14 +24,13 @@ const PlayDiscipline = () => {
       <DisciplinePlayHeaderWidget />
       <DisciplinePlayMainScreenWrapper>
 
-        <DisciplineBookMarkPlayFeature />
+        <DisciplineBookMarkPlayFeature bookMarkSet={ [ "info", "play", "reiting" ] }/>
         <DisciplinePlayContentWrapper>
-          { bookMark === "info" && <DisciplinePlayDescription /> }
+          { bookMark === "info" && <DisciplinePlayInfo  discipline = { discipline! } /> }
           { bookMark === "play" &&  <DisciplinePlayLevelFormWidget /> }
           { bookMark === 'reiting' && <DisciplinePlayReiting /> }
         </DisciplinePlayContentWrapper>
       </DisciplinePlayMainScreenWrapper>
-
     </>
   )
   return null
