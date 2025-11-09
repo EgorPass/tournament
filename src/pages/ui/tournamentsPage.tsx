@@ -8,7 +8,7 @@ import { TournamentsPageSortTreeContainer } from "../../widgets/listWidgets"
 
 const TournamentsPage = suspenseHOCWrapper( 
   () => {
-  console.log( "tournament Widget render ......")
+  // console.log( "tournament Widget render ......")
   const { data: tournaments } = useGetSuspenseStateStore<ITournament>("tournament")
   return(
     <>

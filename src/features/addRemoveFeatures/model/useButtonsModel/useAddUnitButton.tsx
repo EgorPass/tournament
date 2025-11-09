@@ -33,7 +33,8 @@ export const useAddUnitButton = () => {
       if( error ) {
         console.log( error )
       }
-      await queryClient.refetchQueries()
+      await queryClient.invalidateQueries() 
+      // await queryClient.refetchQueries()
     },
   })
 

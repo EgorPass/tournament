@@ -6,14 +6,12 @@ import { IDiscipline, ITournament, ITournamentUnit, ITournamentUnitDiscipline, I
 
 export const useTournamentUnitData = () => {
   const { currentNodeId } = useLocationHooks()
-
   const { data: tournamentUnit, isSuccess: tourUnitIsSuccess } = useGetSuspenseStateItem<ITournamentUnit>( "tournament_unit", "id", currentNodeId! )
   const { data: unit, isSuccess: unitIsSuccess } = useGetSuspenseStateItem<IUnit>("current_unit", "id", tournamentUnit!.current_unit_id)
   const { data: tournament, isSuccess: tournamentIsSuccess } = useGetSuspenseStateItem<ITournament>("tournament", "id", tournamentUnit!.tournament_id )
   
   const { data: tour_unit_disc, isSuccess: tourUnitDiscIsSuccess } = useGetSuspenseStateList<ITournamentUnitDiscipline>( "tournament_unit_discipline", "tournament_unit_id", currentNodeId! )
   const disciplineQueries = useGetSuspenseStateItemsFromList<ITournamentUnitDiscipline, IDiscipline>( tour_unit_disc, "discipline", "id", "discipline_id"  )
-  console.log( disciplineQueries )
 
   const disciplineIsSuccess = disciplineQueries.map( it => it.isSuccess ).every( it => it === true )
   const isSuccess = tourUnitIsSuccess && unitIsSuccess && tournamentIsSuccess && disciplineIsSuccess

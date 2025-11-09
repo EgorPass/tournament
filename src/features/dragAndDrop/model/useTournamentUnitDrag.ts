@@ -1,16 +1,20 @@
-import {  useState } from "react"
+import {  useEffect, useLayoutEffect, useState } from "react"
 import { ITournamentUnitData } from "../../../types"
 import { useDBSetMethods } from "../../../shared/store/offlineDB"
 import { getOverElem } from "../lib/getOverElem"
 
 export const useTournamentUnitDrag = ( units: ITournamentUnitData[] ) => {
-  
   const { changeAtDB } = useDBSetMethods()
+  const [ list, setList ] = useState<ITournamentUnitData[]>([])
   
-  const [ list, setList ] = useState<ITournamentUnitData[]>(
-    units.sort( ( x, y ) => {
-      return +x.tournamentUnit.number - +y.tournamentUnit.number
-    })
+  useEffect( () => {
+    setList (
+      units.sort( ( x, y ) => {
+        return +x.tournamentUnit.number - +y.tournamentUnit.number
+      })
+    )
+  }
+    , [ units, units.length ]
   )
   
   const sortAndDragTournamentUnit = <T>(elem: T) => ( dropZone: Element ) => {
@@ -39,12 +43,16 @@ export const useTournamentUnitDrag = ( units: ITournamentUnitData[] ) => {
     })
     .sort( (x, y) => +x.tournamentUnit.number - +y.tournamentUnit.number ) )
     
-    return true 
+    return true
   }
   
   const saveTournamentList = async ( ) => {
-    for(let i = 0, len = list.length; i < len; i++)
+
+    for(let i = 0, len = list.length; i < len; i++){
+      list[i].tournamentUnit.number = i + 1 + ""
       await changeAtDB("tournament_unit", list[i].tournamentUnit )
+    }
+    setList( list )
   }
 
   return {

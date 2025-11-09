@@ -1,8 +1,9 @@
 import { FC } from "react"
 import styled from "styled-components"
 import { ITournament } from "../../../../../types"
-import { TournamentRubberBox } from "./TournamentRubberBox"
+// import { TournamentRubberBox } from "./TournamentRubberBox"
 import { TournamentLinkBoxList } from "../../tournamentLinkBoxList"
+import { RubberBox } from "../../generic/RubberBox"
 
 
 const StyledTournamentListItem = styled.div`
@@ -18,13 +19,13 @@ export const TournamentRubberListItem: FC<{
   arrow?: boolean
 }> = ({title, index, list, arrow = true }) => (
   <StyledTournamentListItem>
-    <TournamentRubberBox
+    <RubberBox
       title = { title }
       bd = { false }
       arrow = { arrow }
       isOpened = { index < 1 }
     >
       <TournamentLinkBoxList list={ list } />
-    </TournamentRubberBox>
+    </RubberBox>
   </StyledTournamentListItem>
 )

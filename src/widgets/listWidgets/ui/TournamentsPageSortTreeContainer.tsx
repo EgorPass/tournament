@@ -9,7 +9,7 @@ import { useGetSortListStore } from "../../../shared/store/redux/slices/sortSlic
 
 
 export const TournamentsPageSortTreeContainer: FC<{tournaments: ITournament[]}> = ({ tournaments }) => {
-  console.log( "render sort type container ...")
+  // console.log( "render sort type container ...")
   const { tournament: sortType } = useGetSortListStore()
   tournaments = useFilterTournamentList( tournaments )
 

@@ -4,12 +4,12 @@ export const GroupLinks = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, 308px);
-  justify-content: center;
-  grid-row-gap: 18px;
+  /* grid-auto-rows: minmax( 45px, auto ); */
   grid-column-gap: 15px;
+  justify-content: center;
   overflow: hidden;
+  grid-row-gap: 18px;
   /* overflow: hidden; */
-  @media (${props => props.theme.media.max}) {
-    justify-content: center;
+  @media( min-width: 1014px ) {
   }
 `

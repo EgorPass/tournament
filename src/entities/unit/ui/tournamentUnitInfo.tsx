@@ -13,12 +13,15 @@ export const TournamentUnitInfo: FC<{tournamentUnit:ITournamentUnit, unit: IUnit
     weight = { tournamentUnit?.weight } 
   >
     <HeadForLink>
-      <LinkTitle
-         to = "/api/view/current_unit"
-         state = {{ from: { id: unit?.id,  pathname: "current_unit", } }}
+      { getFullUnitName( unit ) }
+      {/* <LinkTitle
+        to = "/api/view/current_unit"
+        state = {{ 
+          from: { id: unit?.id,  pathname: "current_unit", },
+        }}
       >
         { getFullUnitName( unit ) }
-      </LinkTitle>
+      </LinkTitle> */}
     </HeadForLink>
   </UnitInfoBlock>      
 )

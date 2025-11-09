@@ -9,7 +9,7 @@ export const UnitsPageListwWidget = suspenseHOCWrapper(
     const { data: units } = useGetSuspenseStateStore<IUnit>( "current_unit")
     return (
       <ScrollContainerWrapper>
-        <LinksBlock head = "Список спортсменов">
+        <LinksBlock head = { units.length > 0 ? "Список спортсменов" : "" } >
           <UnitsListTree units = { units } />
         </LinksBlock>
       </ScrollContainerWrapper>

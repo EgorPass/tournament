@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useGetSuspenseStateList } from "../../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateList"
 import { useGetSuspenseStateItem } from "../../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateItem"
-import {  IDiscipline, ITournament, TPlayStatus } from "../../../../types"
+import {  IDiscipline, ITournament, ITournamentUnit, TPlayStatus } from "../../../../types"
 import { statusTranslate } from "../../lib/statusTranslate"
 import { useLocationHooks } from "../../../../shared/hooks/useLocationHook"
 import { useDBSetMethods } from "../../../../shared/store/offlineDB"
@@ -17,11 +17,14 @@ export const usePlayActionTournamentButton = () => {
 
   const createTournamentPlayer = useCreateTournamentPlayer( currentNodeId )
 
-  // const { data: tournament } = useGetSuspenseStateItem<ITournament>( "tournament", "id", currentNodeId )
-  // const { data: discipline } = useGetSuspenseStateList<IDiscipline>("discipline", "tournament_id", currentNodeId )
+  const { data: tournament } = useGetSuspenseStateItem<ITournament>( "tournament", "id", currentNodeId )
+  const { data: discipline } = useGetSuspenseStateList<IDiscipline>("discipline", "tournament_id", currentNodeId )
+  
+  const { data: tournamentUnits } = useGetSuspenseStateList<ITournamentUnit>("tournament_unit", "tournament_id", currentNodeId )
 
-  const tournament = queryClient.getQueryData<ITournament>(["tournament", {"id": currentNodeId }] )
-  const discipline = queryClient.getQueryData<IDiscipline[]>(["discipline", {"tournament_id": currentNodeId }])
+  // const tournament = queryClient.getQueryData<ITournament>(["tournament", {"id": currentNodeId }] )
+  // const discipline = queryClient.getQueryData<IDiscipline[]>(["discipline", {"tournament_id": currentNodeId }])
+
 
   const mutate = useMutation({
     mutationFn: async () => {
@@ -58,13 +61,14 @@ export const usePlayActionTournamentButton = () => {
 
       navigate( "/api/view/tournament/check", {
         state: locationState,
+        replace: true,
       })
     },
   })
 
   return { 
-    mutate,
-    status: tournament!.status !== "gameOver",
-    title: statusTranslate[ tournament!.status ],
+    mutate, tournamentUnits,
+    status: !!tournament ? tournament.status !== "gameOver" : false ,
+    title: "Старт соревнования",
   }
 }

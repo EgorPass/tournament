@@ -7,7 +7,7 @@ import { useTournamentData } from "../../model/tournament/useTournamentData"
 
 const CurrentTournament = suspenseHOCWrapper(
   () => {
-    console.log( "render tournamant page...")
+    // console.log( "render tournamant page...")
     const { isSuccess, tournament, disciplines } = useTournamentData()
     if( isSuccess ) return (
       <>

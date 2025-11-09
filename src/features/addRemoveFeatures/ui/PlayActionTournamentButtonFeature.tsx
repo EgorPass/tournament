@@ -6,10 +6,12 @@ import { usePlayActionTournamentButton } from "../model/useButtonsModel/usePlayA
 
 export const PlayActionTournamentButtonFeature = suspenseHOCWrapper (
   () => {
-    const { mutate, title, status,  } = usePlayActionTournamentButton()
+    const { mutate, title, status, tournamentUnits } = usePlayActionTournamentButton()
     const { setisVisibleMenu } = useSetIsVisibleMenu()
 
-    if( status )
+    console.log( title )
+
+    if( status && tournamentUnits.length > 0 )
       return (
         <NavButtonItem 
           title = { title }

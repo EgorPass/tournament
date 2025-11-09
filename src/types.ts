@@ -151,25 +151,24 @@ export type TUnitDisciplineData = {
 
 //////////////// components /////////////////////
 
-export interface ILinkBox {
-  children: ReactNode,
-  to: string,
-  state?: {
-    from: {
-      id: string | undefined,
-      pathname: string,
-    },
-    
-  }
+
+type TPathData = {  
+  id: string | undefined,
+  pathname: string,
 }
 
 export interface ILinkBoxStyled {
   $to: string,
   $state?: {
-    from: {
-      id: string | undefined,
-      pathname: string,
-    },
+    from: TPathData,
+  }
+}
+
+export interface ILinkBox {
+  children: ReactNode,
+  to: string,
+  state?: {
+    from: TPathData,
   }
 }
 

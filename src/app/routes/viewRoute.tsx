@@ -1,4 +1,3 @@
-import { lazy } from "react"
 
 const delay = (ms: number) => {
   return new Promise( (res) => {

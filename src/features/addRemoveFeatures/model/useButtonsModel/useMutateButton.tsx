@@ -30,21 +30,26 @@ export const useMutateButton = ({ func }: IProp) => {
   return useMutation({
     mutationFn: func,
     onMutate: async() => {
-      await queryClient.invalidateQueries()  // не работает 
+      // await queryClient.invalidateQueries()  // не работает 
     },
     async onSettled(data, error, variables, context) {
       if( error ) {
         console.log( error )
       }
       let state: TState = null
-      let dirname: string = "api/view/"
+      let dirname: string = "/"
       let replace: boolean = false
+      let queryKey: Array<TQKey> = []
       if( data ) {
         replace = !!data.replace
-        dirname = data.dirname
+        dirname =  data.dirname
         state = data.state
+        queryKey = "queryKey" in data ? queryKey : []
 
-      await queryClient.refetchQueries()
+        if( queryKey.length > 0 ) {
+          await queryClient.invalidateQueries({ queryKey })
+        }
+        await queryClient.invalidateQueries()
         
         // if( data.queryKey ) {
           // for( let i = 0, len = data.queryKey.length; i< len; i++ ) {
@@ -56,7 +61,7 @@ export const useMutateButton = ({ func }: IProp) => {
           // }
         // }
       }
-      // await queryClient.invalidateQueries()
+      await queryClient.invalidateQueries()
       navigate( dirname, { state, replace } )
     },
   })

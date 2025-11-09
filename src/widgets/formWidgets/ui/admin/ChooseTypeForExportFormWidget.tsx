@@ -8,7 +8,6 @@ import { FormRowComponentWithTitle } from "../../components/generic/formRowCompo
 
 export const ChooseTypeForExportFormWidget = () => (
   <GroupContentWrapper>
-    
     <FormRowText
       name = "fileName" 
       title = "Название для файла"
@@ -18,12 +17,10 @@ export const ChooseTypeForExportFormWidget = () => (
       title = "Выборка будет по:"
     >
       <StyledGridListContainer>
-        
         <ChooseItemForExport 
           value = 'спортсмены'
           list = { unitRadio }
         />
-
         <ChooseItemForExport 
           value = "соревнования"
           list = { tourRadio }
@@ -34,9 +31,7 @@ export const ChooseTypeForExportFormWidget = () => (
             title = "с информацией об участниках"
           />
         </ChooseItemForExport>
-
       </StyledGridListContainer>
     </FormRowComponentWithTitle> 
-
   </GroupContentWrapper>
 )

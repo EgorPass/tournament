@@ -1,12 +1,13 @@
 import { UnitInfoBlock } from "../../../entities/unit";
 import { useCurrentUnitTournamentDeclare } from "../../model/Unit/useCurrentUnitTournamentDeclare";
-import { ScrollContainerWrapper } from "../../../shared/components/groupComponents";
+import { GroupContentWrapper, ScrollContainerWrapper } from "../../../shared/components/groupComponents";
 import { suspenseHOCWrapper } from "../../../shared/HOCs";
 import { CurrentUnitHeaderWidget } from "../../../widgets/headerWidgets";
 import { useGetPlayerModalReiting } from "../../../shared/store/redux/slices/playerModalReiting";
 import { CurrentUnitPlayAndOverDisciplineListWidget } from "../../../widgets/listWidgets";
 import { PlayerModalReitingContainer } from "../../../widgets/resultInfoWidgets";
 import { FC, useEffect, useState } from "react";
+import { GroupContentHead } from "../../../shared/components/heads";
 
 
 interface IProp {
@@ -27,7 +28,7 @@ const DisciplinInfo: FC<IProp> = ({ disciplineName, discipline_id, tournamentNam
   }) 
   return (
     <>
-      <h4>{ tournamentName } - { disciplineName }</h4>
+      <GroupContentHead style = {{ marginBottom: "0px"}}>{ tournamentName } - { disciplineName }</GroupContentHead>
       <PlayerModalReitingContainer 
         discipline_id = { discipline_id} 
         player_id = { player_id }
@@ -47,17 +48,17 @@ const CurrentUnit = suspenseHOCWrapper(
     return (
       <>
         <CurrentUnitHeaderWidget />
-        <ScrollContainerWrapper>
           <UnitInfoBlock unit = { unit! } type = "current_unit"/>
           {
             playerModalReiting.status && disciplineInfo ? (
+
               <DisciplinInfo 
-                { ...disciplineInfo! } 
-                { ...playerModalReiting! } 
-                setDisciplineInfo = { setDisciplineInfo }
+              { ...disciplineInfo! } 
+              { ...playerModalReiting! } 
+              setDisciplineInfo = { setDisciplineInfo }
               />
             ) : (
-              <>
+              <ScrollContainerWrapper>
                 <CurrentUnitPlayAndOverDisciplineListWidget
                   head = "Заявки на участие"
                   unitTournamentsData = { data.prepare }
@@ -74,11 +75,9 @@ const CurrentUnit = suspenseHOCWrapper(
                   unitTournamentsData = { data.gameOver }
                   setDisciplineInfo = { setDisciplineInfo }
                 />
-              </>
+              </ScrollContainerWrapper>
             )
           }
-
-        </ScrollContainerWrapper> 
       </>
     ) 
     return null

@@ -22,17 +22,21 @@ export const useDragTools = () => {
     const shiftY = clientY - targetCoords.y
     const crt = target.cloneNode( true ) as HTMLElement
           crt.style.display = "none"
+    
+    const height = target.offsetHeight || 45
+    const width = target.offsetWidth || 308
+    
+          target.classList.add("drag")
+          target.style.top = clientY  + "px"
+          target.style.left = clientX - shiftX + "px"
 
-      e.dataTransfer.setDragImage( crt, 308 , 45 )
-      e.dataTransfer.effectAllowed = "move"
-
-      target.classList.add("drag")
-      target.style.top = clientY  + "px"
-      target.style.left = clientX - shiftX + "px"
-
-    setElem( data )
-    setDragHtmlElem( target )
-    setMouseCoords( ( { shiftX, shiftY,  x: clientX, y: clientY, } ) )
+    
+          e.dataTransfer.setDragImage( crt, width , height ) //////
+          e.dataTransfer.effectAllowed = "move"
+    
+      setElem( data )
+      setDragHtmlElem( target )
+      setMouseCoords( ( { shiftX, shiftY,  x: clientX, y: clientY, } ) )
   }
 
   const handleDrag = ( e: DragEvent<HTMLDivElement> ) => {
@@ -113,6 +117,8 @@ export const useDragTools = () => {
 
   const handleDragEnd = async ( e: DragEvent<HTMLDivElement>, save: ()=> Promise<void> ) => {
     e.preventDefault();
+
+    dragHtmlElem!.style.height = "100%"
 
     dragHtmlElem!.classList.remove("drag")
     dragHtmlElem!.removeAttribute("style")

@@ -33,7 +33,7 @@ export const DqItemsComponent: FC<{name: string}> = ({name}) => {
     <FieldArray name = { name }>
       {
         (props) => {
-          console.log( props )
+          // console.log( props )
           return (
             props.fields.map( (name, index) =>(
               <StyledDQListContainer key = { name + "_" + index } >

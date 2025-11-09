@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { DisciplineEmptyUnitList } from "../../../entities/discipline"
+import { DisciplineEmptyLevelsForAddUnits, DisciplineEmptyUnitList } from "../../../entities/discipline"
 import { UnitSearchFilterFeature } from "../../../features/searchFilterFeatures"
 import { ScrollContainerWrapper } from "../../../shared/components/groupComponents"
 import { suspenseHOCWrapper } from "../../../shared/HOCs"
@@ -39,20 +39,27 @@ const AddUnitAtTournament = suspenseHOCWrapper(
     const { data: levels } = useGetSuspenseStateList<ILevel>( "level", "discipline_id", fromId! ) 
     const firstLevel = levels.sort( (x, y ) => +x.levelPosition - +x.levelPosition )[0]
 
-    if( disciplineIsSuccess && !!firstLevel )
+    if( disciplineIsSuccess )
     return (
-      <>
+      <> 
         <AddHeaderWidget />
         {
-          firstLevel.createLevel === "fromDisciplineResult" ? (
-            <DisciplineEmptyUnitList level = { firstLevel }/>
-          ) : ( 
-            <AddUntiComponent discipline = { discipline! } />
+          !!firstLevel ? (
+            firstLevel.createLevel === "fromDisciplineResult" ? (
+                <DisciplineEmptyUnitList level = { firstLevel }/>
+              ) : ( 
+                <AddUntiComponent discipline = { discipline! } />
+              )
+
+          ) : (
+            <DisciplineEmptyLevelsForAddUnits />
           )
-        } 
+        }
+     
       </>
     )
-    return null
+    return null 
+
   }
 )
 

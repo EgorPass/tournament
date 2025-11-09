@@ -18,7 +18,7 @@ export const UnitsListTree:FC<{units: IUnit[]}> = ( {units }) => {
                 from: {
                   id: it.id,
                   pathname: "current_unit"
-                }
+                },
               }}
             >
               <CurrentUnitCardInfo { ...it } />

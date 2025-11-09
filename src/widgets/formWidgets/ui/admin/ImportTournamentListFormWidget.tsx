@@ -1,10 +1,10 @@
 import { TourList } from "../../components/admin/TourList"
 import { WrapperForList } from "../../components/admin/WrapperForList"
+import { ChooseSelectItemsForImport } from "../../containers/admin/ChooseSelectItemsForImport"
 import { useChangeImportListAction } from "../../model/admin/useChangeImportLIstAction"
 import { useImportData } from "../../model/admin/useImportData"
 
 export const ImportTournamentListFormWidget = () => {
-
   const { tournament, tournaments_list  } = useImportData()
   useChangeImportListAction( tournament, tournaments_list, "selectTours", "tournaments_list")
 
@@ -14,6 +14,11 @@ export const ImportTournamentListFormWidget = () => {
         when = "chooseTours"
         head = "Соревнования"
       >
+        { 
+          tournament.length > 0 && (
+            <ChooseSelectItemsForImport field = "selectTours" />
+          )
+        }
         <TourList 
           data = { tournament }
           check_list = { tournaments_list }

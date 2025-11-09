@@ -7,6 +7,8 @@ export const useAdminData = () => {
   const title = pathname === "import" ? "Импорт" : "Экспорт"
   const formState = emptyStateForForm.getState("exportDataItems")
 
+  console.log( "formState", formState )
+
   return {
     formState, title, pathname
   }

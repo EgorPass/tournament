@@ -8,8 +8,7 @@ import { SetVisibleNavMenuFeature } from "../../features/layoutFeatures";
 
 
 const Layout = () => {
-  console.log( "render Layout")
-  
+  // console.log( "render Layout")
   return (
     <LayoutCoverWrapperWidget>
       <LoaderSpinnerWidget />

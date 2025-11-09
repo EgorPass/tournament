@@ -1,6 +1,7 @@
 import { css } from "styled-components";
 
 export const LinkButtonStyle = css`
+  /* height: 100%; */
   position: relative;
   padding: 10px 15px 10px;  
   border-radius: 5px;
@@ -15,6 +16,7 @@ export const LinkButtonStyle = css`
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  /* align-items: stretch; */
     background-color: ${ (props => props.theme.themeColors.color.mainBg ) };
 
   &:hover{

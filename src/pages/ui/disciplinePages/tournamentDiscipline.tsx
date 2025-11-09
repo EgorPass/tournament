@@ -16,6 +16,8 @@ const TournametDiscipline = suspenseHOCWrapper(
     const { currentNodeId } = useLocationHooks()
     const { data: discipline, isSuccess: disciplineSuccess } = useGetSuspenseStateItem<IDiscipline>("discipline", "id", currentNodeId )
 
+    // console.log( discipline )
+
     if( disciplineSuccess ) return (
       <>
         <DisciplineHeaderWidget />

@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { sortTournamentListByFamily } from "../../../lib/sortTournamentByFamily";
 import { ITournament } from "../../../../../types";
-import { TournamentRubberBox } from "../tournamentRubberBox/TournamentRubberBox";
+// import { TournamentRubberBox } from "../tournamentRubberBox/TournamentRubberBox";
 import { TournamentRubberListItem } from "../tournamentRubberBox/TournamentRubberListItem";
+import { RubberBox } from "../../generic/RubberBox";
 
 export const TournamentSortByFamily: FC<{tournaments: ITournament[], sortType: string }> = ( { tournaments, sortType }) => {
   const list = sortTournamentListByFamily( tournaments, sortType )
@@ -10,7 +11,7 @@ export const TournamentSortByFamily: FC<{tournaments: ITournament[], sortType: s
     <>
       {
         list?.map( ( [ title, {actual, finished, fuckup} ], index ) => (
-          <TournamentRubberBox
+          <RubberBox
             key = {  title + "-" + index }
             title = { title } 
             bd = { false } 
@@ -43,7 +44,7 @@ export const TournamentSortByFamily: FC<{tournaments: ITournament[], sortType: s
                 />
               )
             }
-          </TournamentRubberBox>
+          </RubberBox>
         ))
       }
     </>

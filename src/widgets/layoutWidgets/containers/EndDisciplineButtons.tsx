@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { BackButtonToPlayFeature } from "../../../features/layoutFeatures"
+import { BackButtonFeature } from "../../../features/layoutFeatures"
 import { LayoutButton } from "../../../shared/components/buttonsAndLinks"
 import { useLocationHooks } from "../../../shared/hooks/useLocationHook"
 import { useDBGetMethods, useDBSetMethods } from "../../../shared/store/offlineDB"
 import { IDiscipline } from "../../../types"
 import { useNavigate } from "react-router-dom"
+import { useSetBookMark } from "../../../shared/store/redux/slices/bookMarkSlice"
 
 
 export const EndDisciplineButtons = () => {
@@ -13,11 +14,13 @@ export const EndDisciplineButtons = () => {
   const { currentNodeId } = useLocationHooks()
   const { getItemFromDB } = useDBGetMethods()
   const { changeAtDB } = useDBSetMethods()
-
+  const { setBookMark } = useSetBookMark()
 
   const mutate = useMutation({
     mutationFn: async( ) => {
       
+      console.log( "end discipline ......")
+
       const disipline = await getItemFromDB<IDiscipline>( "discipline", "id", currentNodeId )
       
       if( disipline ) {
@@ -27,9 +30,12 @@ export const EndDisciplineButtons = () => {
         
         await changeAtDB<IDiscipline>( "discipline", { ...disipline, status: "gameOver" })
       
-        await queryClient.invalidateQueries()
-
-        navigate( `/api/view/dsicipline`, { state: { from: { pathname: "discipline", id: currentNodeId }}})
+        await queryClient.invalidateQueries( {
+          queryKey: ["discipline", { "id": currentNodeId } ] 
+        })
+        setBookMark("reiting")
+        navigate( `/api/view/discipline/check`, { state: { from: { pathname: "discipline", id: currentNodeId } } , replace: true })
+      
       }
     }
   })
@@ -45,7 +51,7 @@ export const EndDisciplineButtons = () => {
       >
         Завершить
       </LayoutButton>
-      <BackButtonToPlayFeature/> 
+      <BackButtonFeature />
     </>
   )
 }

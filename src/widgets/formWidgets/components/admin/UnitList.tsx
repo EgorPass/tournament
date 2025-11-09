@@ -3,13 +3,14 @@ import { IUnit } from "../../../../types";
 import { CurrentUnitCardInfo } from "../../../../entities/unit";
 import { BorderForListItem } from "./BorderForListItem";
 import { Checkbox } from "../../../../shared/components/inputFields/checkBoxItem";
+import { GroupContentForCardItem } from "./GroupContentForCardItem";
 
 interface IUnitListForExport {
   data: IUnit[],
   check_list: IUnit[]
 }
 export const UnitList: FC<IUnitListForExport> = ({data, check_list}) => (
-  <>
+  <GroupContentForCardItem>
     {
       data.map( it => (
         <BorderForListItem 
@@ -21,10 +22,10 @@ export const UnitList: FC<IUnitListForExport> = ({data, check_list}) => (
             name = "current_unit_list"
             value = { it }
             >
-            <CurrentUnitCardInfo { ...it } />
+              <CurrentUnitCardInfo { ...it } />
           </Checkbox>
         </BorderForListItem>
       ))
     }
-  </>
+  </GroupContentForCardItem>
 )

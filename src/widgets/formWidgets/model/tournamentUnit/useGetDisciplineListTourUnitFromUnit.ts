@@ -3,25 +3,28 @@ import { useGetSuspenseStateStore } from "../../../../shared/hooks/state/useGetD
 import { IDiscipline, ITournament, ITournamentUnit, ITournamentUnitDiscipline, IUnit, TDisciplineList } from "../../../../types"
 import { apiDate } from "../../../../shared/lib/api/apiDate"
 import { useLocationHooks } from "../../../../shared/hooks/useLocationHook"
-import { useGetQueryData } from "../../../../shared/hooks/state/useGetQueryData"
+// import { useGetQueryData } from "../../../../shared/hooks/state/useGetQueryData"
 import { useGetSuspenseStateList } from "../../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateList"
 import { apiUnit } from "../../../../shared/lib/api/apiUnit"
 import { apiForCreateData } from "../../../../shared/lib/api/apiForCreateData"
 import { useMemo } from "react"
+import { useGetSuspenseStateItem } from "../../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateItem"
+import { useGetStateItem } from "../../../../shared/hooks/state/useGetDBState/getStateWithoutSuspense/getStateItem"
 
 export const useGetDisciplineListTourUnitFromUnit = () => {
-  const getQueryData = useGetQueryData( )
+  // const getQueryData = useGetQueryData( )
   const { fromId, currentNodeId, createDatafromData  } = useLocationHooks()
   const { values } = useFormState()
   
-  const tournament_unit_id = createDatafromData && ( fromId !== currentNodeId ) ? " " : currentNodeId
-  const tournamentUnit = getQueryData<ITournamentUnit>("tournament_unit", "id", tournament_unit_id )
+
+  const tournament_unit_id = createDatafromData && ( fromId !== currentNodeId ) ? "" : currentNodeId
+  const { data: tournamentUnit } = useGetStateItem<ITournamentUnit>("tournament_unit", "id", tournament_unit_id, !!tournament_unit_id )
 
   const unit_id = tournamentUnit ? tournamentUnit.current_unit_id : fromId
-  const unit = getQueryData<IUnit>( "current_unit", "id", unit_id )
+  const { data: unit } = useGetSuspenseStateItem<IUnit>( "current_unit", "id", unit_id )
  
-  const tournament_id_forQuery = tournamentUnit ? tournamentUnit.tournament_id : " "
-  const tournamentFromQuery = getQueryData<ITournament>("tournament", "id", tournament_id_forQuery )
+  const tournament_id_forQuery = tournamentUnit ? tournamentUnit.tournament_id : ""
+  const { data: tournamentFromQuery } = useGetStateItem<ITournament>("tournament", "id", tournament_id_forQuery, !!tournament_id_forQuery )
 
   const  { data: tournaments } = useGetSuspenseStateStore<ITournament>("tournament")
 
@@ -33,7 +36,7 @@ export const useGetDisciplineListTourUnitFromUnit = () => {
   const emptyUnitDiscipline: Omit<ITournamentUnitDiscipline, "id" | "discipline_id"> = {
     tournament_id,
     tournament_unit_id: tournament_unit_id ? tournament_unit_id : '',
-    current_unit_id: unit.id,
+    current_unit_id: unit!.id,
   } 
   
   let list = values.list as ITournamentUnitDiscipline[]
@@ -41,7 +44,7 @@ export const useGetDisciplineListTourUnitFromUnit = () => {
 
   const disciplineList: TDisciplineList = useMemo( 
     () => disciplines
-    .filter( disc => !!apiUnit.getUnitCategory( disc, unit.gender, age, unit.weight ) )
+    .filter( disc => !!apiUnit.getUnitCategory( disc, unit!.gender, age, unit!.weight ) )
     .reduce( (acc, disc ) => {
       const tourUnitDisc = list.find( it => it.discipline_id === disc.id )
       if( !!tourUnitDisc ) {

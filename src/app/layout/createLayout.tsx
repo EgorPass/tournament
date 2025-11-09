@@ -7,7 +7,7 @@ import { LayoutCreateButtonBoxWidget, LayoutContentBoxWidget } from "../../widge
 import { useChangeDataAtCreateLayout } from "./model/createLayout/useChangeDataAtCreateLayout";
 
 const CreateLayout = () => {
-  console.log( "render create layout ......")
+  // console.log( "render create layout ......")
   
   const { initialValues } = useInitialValuesForForm( )
   const mutate = useChangeDataAtCreateLayout();
@@ -17,8 +17,8 @@ const CreateLayout = () => {
       mutators = { { ...arrayMutators } }
       initialValues = { initialValues }
       onSubmit = { async ( values: any ) => { 
-        mutate.mutate( values ) }
-      }
+        mutate.mutate( values ) 
+      } }
       render = { ( props ) => {
         return (
           <>

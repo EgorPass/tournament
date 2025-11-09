@@ -1,8 +1,11 @@
+import { emptyStateForForm } from "../../../../shared/lib/initialState/emptyStateForForm"
 import { useDBGetMethods } from "../../../../shared/store/offlineDB"
-import { IDiscipline, IExportDataItems, ILevel, ITournamentUnit, ITournamentUnitDiscipline, IUnit } from "../../../../types"
+import { IDiscipline, IExportDataItems, ILevel, ITournament, ITournamentUnit, ITournamentUnitDiscipline, IUnit } from "../../../../types"
 
 export const useExportDataToDisc = () => {
   const { getItemFromDB, getItemsFromDB } = useDBGetMethods()
+  
+
   const exportDataToDisc = async( values: IExportDataItems ) => {
     const { 
       current_unit_list, tournaments_list, 
@@ -11,9 +14,6 @@ export const useExportDataToDisc = () => {
 
     const level: ILevel[] = []
     const discipline: IDiscipline[] = []
-    // tournament_player
-    // level_result
-    // level_list
 
     const current_unit: IUnit[] = []
     const tournament_unit: ITournamentUnit[] = []
@@ -59,9 +59,9 @@ export const useExportDataToDisc = () => {
     }
     
     const saveData = {
-      tournament: tournaments_list,
-      discipline,
-      level,
+      tournament: tournaments_list.map( it => ({...it, status: "prepare" }) as ITournament),
+      discipline: discipline.map( it => ({ ...it, status: "prepare" }) as IDiscipline),
+      level: level.map( it => ({ ...it, status: "prepare" }) as ILevel),
       
       current_unit: [...current_unit, ...current_unit_list ] ,
       tournament_unit,
@@ -69,6 +69,9 @@ export const useExportDataToDisc = () => {
     }
     
     console.log( saveData )
+    const emptyForm = emptyStateForForm.getState("exportDataItems")
+    console.log( emptyForm )
+
 
     const blob = new Blob( [JSON.stringify( saveData ) ], { type: "application/json " } )
     const link = document.createElement( 'a' )

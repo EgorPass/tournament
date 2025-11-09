@@ -8,6 +8,9 @@ export const useChangeExportListAction = ( data: TData, choose: string, listType
 
   const { form, formState: { values } } = useRFFState()
 
+
+  console.log( values )
+
    useEffect(()=> {
       if( values?.typeForExport.includes( choose ) ) {
         if( values[ prop ] === "all" && data )

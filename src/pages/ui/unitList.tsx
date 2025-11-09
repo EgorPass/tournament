@@ -3,7 +3,7 @@ import { UnitsHeaderWidget } from "../../widgets/headerWidgets"
 import { UnitsPageListwWidget } from "../../widgets/listWidgets"
 
 const UnitList = () => {
-  console.log( " render unit list page")
+  // console.log( " render unit list page")
   return (
     <>
       <UnitsHeaderWidget />

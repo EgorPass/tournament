@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ILevel } from "../../../types"
 import { useDBSetMethods } from "../../../shared/store/offlineDB"
 import { getOverElem } from "../lib/getOverElem"
@@ -11,6 +11,12 @@ export const useLevelDrag = ( levels: ILevel[] ) => {
   const [ list, setList ] = useState<ILevel[]>(
     levels.sort( ( x, y ) => +x.levelPosition - +y.levelPosition ) 
   )
+
+  useEffect( () => {
+    setList( levels.sort( ( x, y ) => +x.levelPosition - +y.levelPosition )  )
+  }
+    , [ levels, levels.length ]
+  ) 
 
   const sortAndDragLevel = <T>(elem: T ) => ( dropZone: Element ) => {
     if( 
@@ -44,6 +50,8 @@ export const useLevelDrag = ( levels: ILevel[] ) => {
       for( let i = 0, len = list.length; i < len; i++ ) {
         let level: ILevel 
         const  { levelPosition, createLevel } = list[ i ]
+
+        list[i].levelPosition = i + ""
 
         if( levelPosition === "0" && createLevel === "fromDisciplineResult") {
           level = list[ i ]

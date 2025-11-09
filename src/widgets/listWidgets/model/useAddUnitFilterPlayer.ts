@@ -1,6 +1,6 @@
+import { useGetSuspenseStateItem } from "../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateItem"
 import { useGetSuspenseStateList } from "../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateList"
 import { useGetSuspenseStateStore } from "../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateStore"
-import { useGetQueryData } from "../../../shared/hooks/state/useGetQueryData"
 import { useLocationHooks } from "../../../shared/hooks/useLocationHook"
 import { apiDate } from "../../../shared/lib/api/apiDate"
 import { apiUnit } from "../../../shared/lib/api/apiUnit"
@@ -8,15 +8,11 @@ import { IDiscipline, ITournament, ITournamentUnitDiscipline, IUnit } from "../.
 
 export const useAddUnitFilterPlayer = () => {
   const { fromId } = useLocationHooks()
-  const getQueryData = useGetQueryData()
-  
-  const discipline = getQueryData<IDiscipline>("discipline", "id", fromId  )
-  const discipline_id = !!discipline ? discipline.id: " "
-  const tournament_id = !!discipline ? discipline.tournament_id : " "
-  const tournament = getQueryData<ITournament>( "tournament", "id", tournament_id )
+  const { data: discipline } = useGetSuspenseStateItem<IDiscipline>("discipline", "id", fromId  )
+  const { data: tournament } = useGetSuspenseStateItem<ITournament>( "tournament", "id", discipline!.tournament_id )
 
   const { data: units } = useGetSuspenseStateStore<IUnit>( "current_unit" ) 
-  const { data: tour_unit_disc_list, isSuccess: tourUnitIsSuccess } = useGetSuspenseStateList<ITournamentUnitDiscipline>("tournament_unit_discipline", "discipline_id", discipline_id, "tournament_id", tournament_id )
+  const { data: tour_unit_disc_list, isSuccess: tourUnitIsSuccess } = useGetSuspenseStateList<ITournamentUnitDiscipline>("tournament_unit_discipline", "discipline_id", discipline!.id, "tournament_id", tournament!.id )
 
   const isSuccess = !!discipline && !!tournament && tourUnitIsSuccess
 

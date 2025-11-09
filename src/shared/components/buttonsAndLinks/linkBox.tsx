@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LinkButtonStyle } from "./css/LinkButtonStyle";
 
-
-
 const StyledLinkBox = styled.a.attrs<ILinkBoxStyled>(({ $to, $state})=>({
   as: Link,
   to: $to,

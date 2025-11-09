@@ -5,6 +5,7 @@ export const ResultReitingWrapper = styled.div`
   padding: 15px 15px;
   height: 100%;
   overflow: auto;
+  /* border: 1px dotted black; */
 `
 
 export const ResultRetingColumns = styled.div<{$col?: number, $isTwoCol: boolean}>`
@@ -16,7 +17,7 @@ export const ResultRetingColumns = styled.div<{$col?: number, $isTwoCol: boolean
 
   @media (${props => props.theme.media.max}) {
     display: grid;
-    grid-template-columns: ${({$col}) => !$col ? "repeat(auto-fit, 320px)" : `repeat(${$col},  350px)` };
+    grid-template-columns: ${({$col}) => !$col ? "repeat(auto-fit, 320px)" : `repeat(${ $col },  350px)` };
     box-sizing: border-box ;
     align-items: flex-start;
     justify-content: ${ props => props.$isTwoCol ? "center": "start" };

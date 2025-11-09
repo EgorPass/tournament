@@ -12,7 +12,6 @@ export { ResetComponentToLoad } from "./ui/ResetComponentToLoad"
 export { usePlayLayoutContextConsumer } from "./model/contextPlayLayoutProvider"
 
 export { PlayButtonFeature } from './ui/playLayoutButton/playButtonFeature'
-export { BackButtonToPlayFeature } from "./ui/playLayoutButton/backButtonToPlayFeature"
 export { ResetPlayButtonFeature } from "./ui/playLayoutButton/ResetPlayButtonFeature"
 
 export { ClosePlayerModalData } from "./ui/playLayoutButton/ClosePlayerModalData"

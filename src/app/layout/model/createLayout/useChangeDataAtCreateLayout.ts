@@ -20,7 +20,7 @@ export const useChangeDataAtCreateLayout = () => {
     func: async (values: any ) => {
             
       if( saveChangeData ) {
-        console.log( "СОХРАНЯЕМ ИЗМЕНЕНИЯ!!!!!!!!!" )
+        // console.log( "СОХРАНЯЕМ ИЗМЕНЕНИЯ!!!!!!!!!" )
 
         if( pathname === "tournament_unit") {
           await removeTourUnitDiscipline( values.unit.id )
@@ -41,7 +41,7 @@ export const useChangeDataAtCreateLayout = () => {
       }
       // /////////////////////////////////////////////////////
       else if( createDatafromData ){
-        console.log( "ЧТО ТО СОЗДАЁМ НА ОСНОВЕ :", locationState.from.pathname)
+        // console.log( "ЧТО ТО СОЗДАЁМ НА ОСНОВЕ :", locationState.from.pathname)
         
         if( fromPathname === "current_unit" && pathname === "tournament_unit") {
           const { list, tournament_id } = values 
@@ -79,7 +79,7 @@ export const useChangeDataAtCreateLayout = () => {
       }
       // ///////////////////////////////////////////////////////
       else if( createNewData ) {
-        console.log( "СОЗДАЁМ ЧТО ТО НОВОЕ!!!!!!!! :")
+        // console.log( "СОЗДАЁМ ЧТО ТО НОВОЕ!!!!!!!! :")
         
         if( pathname === "tournament_unit") {
           console.log( "save:", values.list)

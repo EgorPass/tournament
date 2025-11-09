@@ -32,7 +32,7 @@ export const DisciplineUnitListWidget: FC<{discipline: IDiscipline }> = ( { disc
           firstLevel.createLevel === "fromDisciplineResult" ? (
             <DisciplineEmptyUnitList level = { firstLevel }/>
           ) : (
-            <DisiplineUnitsList discipline={ discipline }/>
+            <DisiplineUnitsList discipline = { discipline }/>
           )
         }
     </>

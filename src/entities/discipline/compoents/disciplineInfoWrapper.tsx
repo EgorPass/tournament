@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+export const DisciplineUnitEmplyListWrapper = styled.div`
+  
+  margin: 0 auto;
+
+  @media (${props => props.theme.media.max}) {
+    max-width: 520px;
+   
+
+    justify-content: stretch;     
+  }
+
+`
+
 export const DisciplineInfoWrapper = styled.div`
   display: grid;
   grid-template-columns: auto;

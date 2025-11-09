@@ -37,15 +37,15 @@ export const DragAndDropLinksFeature:FC<IHocDnD> = ({
             onDragOver = { 
               (e) => handleDragOver( e, replaceFunction( elem ) )
             } 
-          >
+            >
             <DraggableElement
               id = { it.id }
               data-drag-name = { dataDragName }
               onDrag = { handleDrag }
-              onDragStart = { ( e ) => handleDrasStart( e, it ) }
               onDragEnd = { 
                 ( e ) => handleDragEnd( e, saveFunction ) 
               }
+              onDragStart = { ( e ) => handleDrasStart( e, it ) }
             >
               { listItem( {...it}) }
             </DraggableElement>

@@ -1,6 +1,11 @@
+import styled from "styled-components"
+
+const Paragrhp = styled.p`
+  text-align: center;
+`
 
 export const TournamentEmptyBase = () => (
-  <p>
-    нет ни одного соревнования в базе
-  </p>
+  <Paragrhp>
+    Нет ни одного соревнования в базе
+  </Paragrhp>
 )

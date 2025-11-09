@@ -1,10 +1,6 @@
 export const pageActions: {[key: string]: any } = {
   
   tournament: [ 
-    // {
-    //   to: "api/add/tournament_unit",
-    //   title: "Добавить участника соревнований",
-    // },
     {
       type: "start-tournament",
       to: "api/*",

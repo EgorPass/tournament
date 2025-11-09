@@ -10,6 +10,9 @@ export const useSaveButton = () => {
     catch(e) {
       console.log( "fuck you")
     }
+    finally {
+      form.reset( formState.initialValues )
+    }
   }
   return { submit, disabled }
 }

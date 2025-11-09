@@ -23,9 +23,7 @@ export const useCreateLevelList = () => {
 
   return useMutation({
     mutationFn: async ( {discipline, level, womenPlayers, menPlayers, state } : ICreateLevelList ) => {
-        console.log( "in mutate ")
-
-        console.log( womenPlayers  )
+        // console.log( "in mutate ")
 
         if( 
           state === "error" 
@@ -66,14 +64,6 @@ export const useCreateLevelList = () => {
           boy: boyReitingList,
           girl: girlReitingList,
         }
-
-        // console.log( level_list )
-        // console.log( levelReitingList )
-
-        // console.log( girlReitingList )
-        // console.log( boyReitingList)
-        // console.log( girl )
-        // console.log( boy )
 
         if( girl.data.length > 0 || boy.data.length > 0 ) {
           await addToDB<ILevelList>( "level_list", level_list )

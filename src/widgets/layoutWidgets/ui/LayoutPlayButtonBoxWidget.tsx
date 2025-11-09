@@ -1,10 +1,8 @@
-import { BackButtonToPlayFeature, ClosePlayerModalData, PlayButtonFeature,  ResetPlayButtonFeature, usePlayLayoutContextConsumer } from "../../../features/layoutFeatures"
+import { BackButtonFeature, ClosePlayerModalData, NextLevelButtonFeature, PlayButtonFeature,  ResetPlayButtonFeature, usePlayLayoutContextConsumer } from "../../../features/layoutFeatures"
 import { useLocationHooks } from "../../../shared/hooks/useLocationHook"
 import { useGetPlayerModalData } from "../../../shared/store/redux/slices/playerModalData"
 import { IPLayLayoutContext } from "../../../types"
 import { LayoutButtonBox } from "../components/LayoutButtonBox"
-import { CirclePlayButtonBox } from "../components/CirclePlayButtonBox"
-import { OneToOnePlayButtonBox } from "../components/OneToOnePlayButtonBox"
 import { OneToOnePlayButtons } from "../containers/OneToOnePlaytBottons"
 import { CirclePlayButtons } from "../containers/CirclePlayButtons"
 import { useGetBookMark } from "../../../shared/store/redux/slices/bookMarkSlice"
@@ -39,8 +37,24 @@ export const LayoutPlayButtonBoxWidget = () => {
             {
               fullFinished && !isLastLevel && (
                 <>
-                  { !!level && level.try === "circle" && <CirclePlayButtonBox /> }
-                  { !!level && level.try === "OneToOne" && <OneToOnePlayButtonBox /> }
+                  <BackButtonFeature />
+                  
+                  { !!level && level.try === "circle" && (
+                    <>
+                    <PlayButtonFeature 
+                      title = "Попытка"
+                      action = "try"
+                      layoutPlace = "save"
+                      disabled = { false }
+                    />
+                    <NextLevelButtonFeature layoutPlace = "reset"/>
+                    </>
+                  )
+                  }
+                  { !!level && level.try === "OneToOne" && (
+                    <NextLevelButtonFeature layoutPlace = "save" />
+                  ) 
+                  }
                 </>
               )
             }
@@ -56,7 +70,10 @@ export const LayoutPlayButtonBoxWidget = () => {
         : bookmark === "reiting" ? (
           <>
             {
-              playerModalReiting && (
+              ( !playerModalReiting.status && !playerModal ) && <BackButtonFeature />
+            }
+            {
+              playerModalReiting.status && (
                 <BackButtonPlayerReitingFeature />
               )
             }
@@ -75,7 +92,11 @@ export const LayoutPlayButtonBoxWidget = () => {
               )
             }
           </>
-        ) : <BackButtonToPlayFeature/> 
+        ) : (
+          <>
+            <BackButtonFeature />
+          </>
+        ) 
       
       }
     

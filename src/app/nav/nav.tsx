@@ -4,6 +4,7 @@ import { NavSortTourMenu, NavThemeMenu, NavAdminMenu, NavMainSingleMenuItem, Nav
 import { useGetIsVisibleMenu, useSetIsVisibleMenu } from "../../shared/store/redux/slices/menuSlice";
 import { CloseNavMenuFeature } from "../../features/layoutFeatures";
 import { FC, ReactNode } from "react";
+import { NavLink } from "../../widgets/navWidgets/components/navLink";
 
 const StyledOuterListContainer = styled.ul`
   height: 100%;
@@ -76,8 +77,7 @@ const Nav = () => {
       <Wrapper
         onBlur={ (e) => {
           console.log( "blur ....")
-                setisVisibleMenu( false )
-
+          setisVisibleMenu( false )
         }}
       >
       <ScrollContainerWrapper>
@@ -90,14 +90,13 @@ const Nav = () => {
               }
           }}
         >
-
+          <NavLink to = '/' title = "домой" /> 
           <NavMainSingleMenuItem />
           <NavSortTourMenu />
           <NavSortReitingList />
           <NavActionForPages />
           <NavAdminMenu />         
           <NavThemeMenu />
-
 
         </StyledOuterListContainer>
       </ScrollContainerWrapper>

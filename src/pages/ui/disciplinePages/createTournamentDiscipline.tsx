@@ -9,19 +9,19 @@ const CreateTournametDiscipline = () => {
   if( isSuccess )
   return (
     <>
-        <DisciplineHeaderWidget />
-        <ScrollContainerWrapper>
-          <form>
-            <DisciplineNameFormWidget />
-            <GroupContentWrapper>
-              <GroupContentHead>Парвила дисциплины</GroupContentHead>
-                <DisciplineConditionFormWidget />
-                <DisciplineCreateCategoryFormWidget />
-                <DisciplineCreateDQSFormWidget />
-            </GroupContentWrapper>
-          </form>
-        </ScrollContainerWrapper>
-      </>
+      <DisciplineHeaderWidget />
+      <ScrollContainerWrapper>
+        <form>
+          <DisciplineNameFormWidget />
+          <GroupContentWrapper>
+            <GroupContentHead>Парвила дисциплины</GroupContentHead>
+              <DisciplineConditionFormWidget />
+              <DisciplineCreateCategoryFormWidget />
+              <DisciplineCreateDQSFormWidget />
+          </GroupContentWrapper>
+        </form>
+      </ScrollContainerWrapper>
+    </>
   )
   return null
   }

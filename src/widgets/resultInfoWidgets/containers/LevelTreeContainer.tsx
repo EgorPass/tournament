@@ -14,11 +14,7 @@ interface IProp {
 
 export const LevelTreeContainer:FC<IProp> = suspenseHOCWrapper(
   ({discipline, tournamentPlayers}) => {
-  
   const { data, isSuccess, } = useCreateReitingList( discipline, tournamentPlayers )
-  
-  console.log( data )
-
   if( isSuccess )
   return (
     <ResultReitingWrapper>

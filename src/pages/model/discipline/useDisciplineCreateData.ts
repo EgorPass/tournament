@@ -7,6 +7,5 @@ export const useDisciplineCreateData = () => {
   const { data: discipline } = useGetStateItem<IDiscipline>('discipline', "id", currentNodeId, pathname === fromPathname )
   const tournament_id = ( pathname !== fromPathname ) ? fromId : !!discipline ? discipline.tournament_id : ""
   const {isSuccess} = useGetStateItem<ITournament>("tournament", "id", tournament_id, !!tournament_id )
-
-  return { isSuccess }
+    return { isSuccess }
 }

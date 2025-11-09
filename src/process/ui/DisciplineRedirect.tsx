@@ -27,6 +27,8 @@ const DisciplineRedirect = suspenseHOCWrapper (
         console.log( "ни единого этапа для соревнования !!!!")
       }
     }
+
+
     if( isSuccess && levelIsSuccess )
     return (
       <RedirectToPlayPageFeature 

@@ -5,11 +5,14 @@ export const DraggableElement = styled.div.attrs(({
   "data-type": "drag-elem"
 }))`
   width: 308px;
-  height: 45px;
+  /* height: auto; */
+  /* height: 45px; */
+  /* height: 100%; */
   padding: 0;
   margin: 0;
   z-index: 3;
   position: relative;
+
   &.drag {
     position: fixed;
     z-index: 2;

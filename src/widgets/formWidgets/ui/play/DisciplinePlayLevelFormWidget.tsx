@@ -11,8 +11,6 @@ export const DisciplinePlayLevelFormWidget = () => {
   
   const { level, levelList, levelListItem, fullFinished, playersData, plyaerInGame } = usePlayFormPrepare()
 
-  
-
   return (
     <>
       {

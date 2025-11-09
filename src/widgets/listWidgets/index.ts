@@ -8,3 +8,4 @@ export { AddToDisciplineUnitListWidget } from "./ui/AddToDisciplineUnitListWidge
 export { CurrentUnitPlayAndOverDisciplineListWidget } from "./ui/CurrentUnitPlayAndOverDisciplineListWidget"
 
 
+export { RubberBox } from "./components/generic/RubberBox"

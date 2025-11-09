@@ -46,15 +46,10 @@ export const DisciplineTournamentPlayerModalData = suspenseHOCWrapper(
     return () => {
       console.log( "reset modal form ")
       form.reset()
-    }
-  }, [] ) 
-  
-  useEffect(() => {
-    return () => {
       console.log( "delete modal form ")
       setPlayerModalData( null )
     }
-  }, []) 
+  }, [] ) 
 
   if( status && dataToTreeModalForm  )
   return (

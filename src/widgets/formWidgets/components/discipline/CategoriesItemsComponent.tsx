@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { FieldArrayRemoveFeature } from "../../../../features/formFeatures";
 import { GridItem } from "./gridItem";
 import { InputNumber } from "../../../../shared/components/inputFields/inputNumber";
+import { sortCategoryArray } from "../../lib/sortCategoryArray";
 
-type TFieldType = { from: string, to: string}
 
 export const CategoryWrapper = styled(GridItem)`
   grid-template-columns: repeat(2, 76px) 30px;
@@ -22,15 +22,7 @@ export const CategoriesItemsComponent: FC<{name: string}> = ( { name } ) => {
     <FieldArray name = { name }>
       {
         (props) =>{ 
-          console.log(props )
-          // props.fields.value
-          // .sort((x: TFieldType,y: TFieldType) => {
-          //   if( ( Number( x.to ) - Number( y.to ) ) > 0 ){
-          //     return 1
-          //   } 
-          //   else return -1
-          // }) 
-
+          props.fields.value.sort( sortCategoryArray )
           return (
           props.fields.map((name, index) => (
             <CategoryWrapper
@@ -53,7 +45,7 @@ export const CategoriesItemsComponent: FC<{name: string}> = ( { name } ) => {
               </CategoryItem>
 
               <FieldArrayRemoveFeature 
-                displayContent = { index > 0 }
+                displayContent = { index > 0 || props.fields.value.length > 1 }
                 callback = { (e) => {
                   e.preventDefault();
                   props.fields.remove(index)

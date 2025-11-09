@@ -6,17 +6,19 @@ import { useDBGetMethods } from "../../shared/store/offlineDB"
 import { useGetListItmeFromFirstLevel } from "../model/useGetListItmeFromFirstLevel"
 import { useGetListItmeFromPastLevel } from "../model/useGetListItmeFromPastLevel"
 import { useGetListItemFromDiscipline } from "../model/useGetListItemFromDiscipline"
+import { useNavigate } from "react-router-dom"
 
 let render = 1
 const PlayDisciplinePrepareLevelFeature =  () => {
   console.log( "prepare level page render ---- ", render++)
-  const { currentNodeId } = useLocationHooks()
+  const { currentNodeId, locationState } = useLocationHooks()
   const createLevelList = useCreateLevelList()
   const { getItemFromDB, getItemsFromDB} = useDBGetMethods()
   const getListItemFromPastLevel = useGetListItmeFromPastLevel()
   const getListItemFromFirstLevel = useGetListItmeFromFirstLevel()
   const getListItemFromDiscipline = useGetListItemFromDiscipline()
-  
+  const navigate = useNavigate()
+
   useLayoutEffect( () => {
     let menPlayers: TCategoryFabric[] = [];
     let womenPlayers: TCategoryFabric[]  = [];
@@ -43,6 +45,10 @@ const PlayDisciplinePrepareLevelFeature =  () => {
         ( { createLevel, fromResult: { discipline: fromDiscipline } } = currentLevel )
       }
       
+      if( isPlayLevel ) {
+        navigate("/api/play/discipline", { state: locationState, replace: true })
+      }
+
       if( !isPlayLevel && !gameIsEnd && discipline && currentLevel && (  createLevel === "fromPastLevel" || createLevel === "fromLevelResult")   ) {
         console.log( "prepare level from past ");
         ( { menPlayers, womenPlayers, state } = await getListItemFromPastLevel( currentLevel, levels,  discipline! ) )
@@ -66,17 +72,13 @@ const PlayDisciplinePrepareLevelFeature =  () => {
       if( gameIsEnd ) {
         // делаем навигацию на страницу с результатами
       }
-      
 
     })();
 
   } , [] ) 
 
-  return (
-    <> 
-      prepare level!!!
-    </>
-  )
+  return <> .....грузим, грузим</>
+  
 }
 // )
 

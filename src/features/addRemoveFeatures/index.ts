@@ -17,6 +17,3 @@ export { RemoveUnitButtonFeature } from "./ui/RemoveUnitButtonFeature"
 export { RemoveTournamentButtonFeature } from "./ui/RemoveTournamentButtonFeature"
 export { RemoveDisciplineButtonFeature } from "./ui/RemoveDisciplineButtonFeature"
 export { RemoveLevelButtonFeature } from "./ui/RemoveLevelButtonFeature"
-
-
-

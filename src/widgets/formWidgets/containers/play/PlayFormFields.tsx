@@ -55,7 +55,7 @@ export const PlayerFormFields:FC<IProp> = ( {id, condition,  dqList, idx }) => {
         <h6>Итого:</h6>
         <div>
           { condition === "time" && <TimeResultInfo id = { id } idx = { idx } /> }
-          { condition === "point" && <></> }
+          { condition === "point" && <>не покажу :))</> }
         </div>
       </ResultRowWrapper>
 

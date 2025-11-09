@@ -1,7 +1,4 @@
 import { IDiscipline, ILevel, ITournament } from "../../../types";
-import { useGetQueryData } from "../../../shared/hooks/state/useGetQueryData";
-import { useGetSuspenseStateItem } from "../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateItem";
-import { useGetSuspenseStateList } from "../../../shared/hooks/state/useGetDBState/getStateWithSuspense/useGetSuspenseStateList";
 import { useGetStateItem } from "../../../shared/hooks/state/useGetDBState/getStateWithoutSuspense/getStateItem";
 import { useGetStateList } from "../../../shared/hooks/state/useGetDBState/getStateWithoutSuspense/getStateList";
 
